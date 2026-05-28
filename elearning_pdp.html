@@ -1,0 +1,1882 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formation — Plan de Prévention HSE</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0D1B2A;--blue:#1565C0;--blue-m:#1E88E5;--blue-p:#E3F2FD;--blue-i:#BBDEFB;
+  --ora:#E65100;--ora-l:#FBE9E7;--ora-m:#FF8A65;
+  --grn:#2E7D32;--grn-l:#F1F8E9;--grn-m:#A5D6A7;
+  --red:#B71C1C;--red-l:#FFEBEE;
+  --ylw:#F9A825;--ylw-l:#FFFDE7;
+  --grey-l:#F5F5F5;--grey-m:#EEEEEE;--grey-b:#DDDDDD;--grey-t:#888;
+  --white:#FFFFFF;--bg:#0D1B2A;
+  --sidebar:260px;
+  --r:14px;
+}
+html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);color:var(--navy);overflow:hidden}
+
+/* ═══════════════════════════════════════════════
+   LAYOUT
+═══════════════════════════════════════════════ */
+.app{display:flex;height:100vh;overflow:hidden}
+
+/* ── SIDEBAR ── */
+.sidebar{
+  width:var(--sidebar);flex-shrink:0;
+  background:rgba(255,255,255,0.04);
+  border-right:1px solid rgba(255,255,255,0.07);
+  display:flex;flex-direction:column;
+  overflow:hidden;
+}
+.sidebar-header{
+  padding:20px 18px 16px;
+  border-bottom:1px solid rgba(255,255,255,0.07);
+}
+.sidebar-logo{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:14px;
+}
+.sidebar-logo .ico{
+  width:36px;height:36px;border-radius:10px;
+  background:var(--blue-m);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;color:#fff;flex-shrink:0;
+}
+.sidebar-logo span{font-size:12px;font-weight:600;color:rgba(255,255,255,0.9);line-height:1.3}
+.sidebar-logo small{font-size:10px;color:rgba(255,255,255,0.4);display:block}
+
+/* Progress global */
+.global-progress{margin-top:4px}
+.gp-label{display:flex;justify-content:space-between;font-size:10px;color:rgba(255,255,255,0.4);margin-bottom:6px}
+.gp-bar{height:3px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden}
+.gp-fill{height:100%;background:linear-gradient(90deg,var(--blue-m),#42A5F5);border-radius:2px;transition:width 0.5s ease}
+
+/* Nav */
+.sidebar-nav{flex:1;overflow-y:auto;padding:12px 10px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,0.1) transparent}
+.nav-section-title{font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);padding:10px 8px 6px}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 10px;border-radius:10px;
+  cursor:pointer;margin-bottom:2px;
+  transition:background 0.15s;position:relative;
+}
+.nav-item:hover{background:rgba(255,255,255,0.06)}
+.nav-item.active{background:rgba(30,136,229,0.2)}
+.nav-item.active .nav-label{color:#fff}
+.nav-item.done .nav-num{background:var(--grn);color:#fff}
+.nav-num{
+  width:22px;height:22px;border-radius:50%;
+  background:rgba(255,255,255,0.08);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:700;color:rgba(255,255,255,0.4);
+  flex-shrink:0;transition:all 0.2s;
+}
+.nav-item.active .nav-num{background:var(--blue-m);color:#fff}
+.nav-label{font-size:12px;color:rgba(255,255,255,0.55);line-height:1.3;transition:color 0.15s}
+.nav-check{margin-left:auto;font-size:14px;color:var(--grn);opacity:0;transition:opacity 0.2s}
+.nav-item.done .nav-check{opacity:1}
+
+/* Sidebar footer */
+.sidebar-footer{
+  padding:14px;border-top:1px solid rgba(255,255,255,0.07);
+}
+.cert-btn{
+  width:100%;padding:10px;border-radius:10px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  color:rgba(255,255,255,0.4);font-size:12px;font-weight:500;
+  cursor:not-allowed;display:flex;align-items:center;justify-content:center;gap:8px;
+  font-family:'Poppins',sans-serif;transition:all 0.2s;
+}
+.cert-btn.ready{background:var(--ylw);color:var(--navy);border-color:var(--ylw);cursor:pointer}
+.cert-btn.ready:hover{background:#F57F17}
+
+/* ── MAIN ── */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;background:#F8F9FA}
+
+/* Top bar */
+.topbar{
+  height:56px;background:var(--white);
+  border-bottom:1px solid var(--grey-b);
+  display:flex;align-items:center;padding:0 28px;
+  gap:16px;flex-shrink:0;
+}
+.topbar-title{font-size:14px;font-weight:600;color:var(--navy);flex:1}
+.topbar-meta{font-size:12px;color:var(--grey-t);display:flex;align-items:center;gap:16px}
+.topbar-meta span{display:flex;align-items:center;gap:5px}
+.topbar-meta i{font-size:15px}
+
+/* Content area */
+.content{flex:1;overflow-y:auto;padding:36px 48px 60px;scrollbar-width:thin}
+
+/* Nav buttons */
+.nav-buttons{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 28px;background:var(--white);
+  border-top:1px solid var(--grey-b);flex-shrink:0;
+}
+.nav-btn{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 22px;border-radius:10px;border:none;
+  font-size:13px;font-weight:600;cursor:pointer;
+  font-family:'Poppins',sans-serif;transition:all 0.15s;
+}
+.nav-btn.prev{background:var(--grey-l);color:var(--grey-t)}
+.nav-btn.prev:hover{background:var(--grey-m)}
+.nav-btn.next{background:var(--blue);color:#fff}
+.nav-btn.next:hover{background:var(--navy)}
+.nav-btn:disabled{opacity:0.35;cursor:not-allowed}
+.slide-counter{font-size:13px;font-weight:500;color:var(--grey-t)}
+
+/* ═══════════════════════════════════════════════
+   SLIDE COMPONENTS
+═══════════════════════════════════════════════ */
+.slide{display:none;animation:slideIn 0.4s ease}
+.slide.active{display:block}
+@keyframes slideIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* Hero slide */
+.hero-slide{
+  min-height:calc(100vh - 200px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:40px 20px;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--blue-p);color:var(--blue);
+  border-radius:40px;padding:8px 20px;
+  font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
+  margin-bottom:24px;
+}
+.hero-slide h1{font-size:clamp(28px,4vw,42px);font-weight:700;color:var(--navy);line-height:1.2;margin-bottom:16px}
+.hero-slide .sub{font-size:15px;color:var(--grey-t);line-height:1.7;max-width:560px;margin:0 auto 36px}
+.hero-stats{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin-bottom:40px}
+.h-stat{
+  background:var(--white);border:1px solid var(--grey-b);
+  border-radius:var(--r);padding:18px 24px;text-align:center;min-width:120px;
+}
+.h-stat .val{font-size:26px;font-weight:700;color:var(--blue);display:block}
+.h-stat .lbl{font-size:11px;color:var(--grey-t);margin-top:2px}
+.start-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--blue);color:#fff;
+  padding:14px 32px;border-radius:12px;border:none;
+  font-size:15px;font-weight:600;cursor:pointer;
+  font-family:'Poppins',sans-serif;
+  transition:all 0.2s;
+}
+.start-btn:hover{background:var(--navy);transform:translateY(-2px);box-shadow:0 8px 24px rgba(21,101,192,0.3)}
+
+/* Section title */
+.section-eyebrow{
+  display:flex;align-items:center;gap:10px;margin-bottom:10px;
+}
+.eyebrow-chip{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;
+  letter-spacing:0.06em;text-transform:uppercase;
+}
+.chip-blue{background:var(--blue-p);color:var(--blue)}
+.chip-ora{background:var(--ora-l);color:var(--ora)}
+.chip-grn{background:var(--grn-l);color:var(--grn)}
+.chip-red{background:var(--red-l);color:var(--red)}
+.chip-ylw{background:var(--ylw-l);color:var(--ylw)}
+
+.slide-title{font-size:clamp(20px,3vw,28px);font-weight:700;color:var(--navy);margin-bottom:8px;line-height:1.3}
+.slide-intro{font-size:14px;color:var(--grey-t);line-height:1.7;margin-bottom:28px;max-width:680px}
+
+/* Cards grid */
+.cards-grid{display:grid;gap:16px}
+.cards-grid.cols2{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.cards-grid.cols3{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+
+.card{
+  background:var(--white);border:1px solid var(--grey-b);
+  border-radius:var(--r);padding:22px 20px;
+  transition:transform 0.15s,box-shadow 0.15s;
+}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.09)}
+.card-icon{
+  width:44px;height:44px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;margin-bottom:14px;
+}
+.ci-blue{background:var(--blue-p);color:var(--blue)}
+.ci-ora{background:var(--ora-l);color:var(--ora)}
+.ci-grn{background:var(--grn-l);color:var(--grn)}
+.ci-red{background:var(--red-l);color:var(--red)}
+.ci-ylw{background:var(--ylw-l);color:var(--ylw)}
+.ci-grey{background:var(--grey-l);color:var(--grey-t)}
+
+.card h3{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:8px}
+.card p{font-size:13px;color:var(--grey-t);line-height:1.65}
+.card .tag{
+  display:inline-block;margin-top:10px;
+  font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;
+  letter-spacing:0.05em;text-transform:uppercase;
+}
+
+/* Timeline */
+.timeline{position:relative;padding-left:40px}
+.timeline::before{content:'';position:absolute;left:14px;top:8px;bottom:8px;width:2px;background:var(--blue-i)}
+.tl-item{position:relative;margin-bottom:24px}
+.tl-dot{
+  position:absolute;left:-33px;top:4px;
+  width:20px;height:20px;border-radius:50%;
+  background:var(--blue-m);border:3px solid var(--white);
+  box-shadow:0 0 0 2px var(--blue-m);
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:700;color:#fff;
+}
+.tl-content{background:var(--white);border:1px solid var(--grey-b);border-radius:12px;padding:16px 18px}
+.tl-title{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.tl-body{font-size:12px;color:var(--grey-t);line-height:1.65}
+.tl-badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:8px;letter-spacing:0.05em}
+.tb-blue{background:var(--blue-p);color:var(--blue)}
+.tb-ora{background:var(--ora-l);color:var(--ora)}
+.tb-grn{background:var(--grn-l);color:var(--grn)}
+.tb-red{background:var(--red-l);color:var(--red)}
+
+/* Table */
+.styled-table{width:100%;border-collapse:collapse;font-size:13px}
+.styled-table th{
+  background:var(--navy);color:#fff;
+  padding:12px 14px;text-align:left;font-weight:600;font-size:12px;
+}
+.styled-table th:first-child{border-radius:10px 0 0 0}
+.styled-table th:last-child{border-radius:0 10px 0 0}
+.styled-table td{padding:11px 14px;border-bottom:1px solid var(--grey-b);color:var(--navy);vertical-align:top}
+.styled-table tr:last-child td{border-bottom:none}
+.styled-table tr:nth-child(even) td{background:var(--grey-l)}
+.styled-table tr:hover td{background:var(--blue-p)}
+
+/* Alert box */
+.alert{
+  border-radius:12px;padding:16px 18px;margin-bottom:16px;
+  display:flex;gap:12px;align-items:flex-start;
+}
+.alert i{font-size:20px;flex-shrink:0;margin-top:1px}
+.alert-title{font-size:13px;font-weight:600;margin-bottom:3px}
+.alert-body{font-size:12px;line-height:1.65}
+.alert-danger{background:var(--red-l);border-left:3px solid var(--red)}
+.alert-danger i,.alert-danger .alert-title{color:var(--red)}
+.alert-danger .alert-body{color:#7B1FA2}
+.alert-warning{background:var(--ylw-l);border-left:3px solid var(--ylw)}
+.alert-warning i,.alert-warning .alert-title{color:var(--ylw)}
+.alert-warning .alert-body{color:#5D4037}
+.alert-info{background:var(--blue-p);border-left:3px solid var(--blue-m)}
+.alert-info i,.alert-info .alert-title{color:var(--blue)}
+.alert-info .alert-body{color:#1565C0}
+.alert-success{background:var(--grn-l);border-left:3px solid var(--grn)}
+.alert-success i,.alert-success .alert-title{color:var(--grn)}
+.alert-success .alert-body{color:var(--grn)}
+
+/* Quote */
+.law-quote{
+  background:var(--navy);color:#fff;
+  border-radius:12px;padding:20px 24px;
+  margin:20px 0;position:relative;overflow:hidden;
+}
+.law-quote::before{content:'"';position:absolute;top:-10px;left:16px;font-size:80px;opacity:0.06;font-weight:700;line-height:1}
+.law-ref{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue-m);margin-bottom:8px}
+.law-text{font-size:13px;line-height:1.75;color:rgba(255,255,255,0.85);font-style:italic}
+
+/* Process steps */
+.process-steps{display:flex;flex-direction:column;gap:12px}
+.ps-item{
+  display:flex;gap:16px;align-items:flex-start;
+  background:var(--white);border:1px solid var(--grey-b);
+  border-radius:12px;padding:16px 18px;
+  transition:transform 0.15s;
+}
+.ps-item:hover{transform:translateX(4px)}
+.ps-num{
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;flex-shrink:0;
+}
+.ps-content h4{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.ps-content p{font-size:12px;color:var(--grey-t);line-height:1.6}
+.ps-who{font-size:10px;font-weight:700;padding:2px 8px;border-radius:8px;display:inline-block;margin-top:6px}
+
+/* Two cols */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+
+/* Divider */
+.divider{height:1px;background:var(--grey-b);margin:24px 0}
+
+/* Big number */
+.big-numbers{display:flex;gap:16px;flex-wrap:wrap;margin:20px 0}
+.bn-item{
+  flex:1;min-width:130px;
+  background:var(--white);border:1px solid var(--grey-b);
+  border-radius:12px;padding:16px;text-align:center;
+}
+.bn-val{font-size:28px;font-weight:700;display:block;line-height:1.1}
+.bn-lbl{font-size:11px;color:var(--grey-t);margin-top:4px;line-height:1.4}
+
+/* ── QUIZ ── */
+.quiz-container{max-width:640px;margin:0 auto}
+.quiz-q{font-size:16px;font-weight:600;color:var(--navy);margin-bottom:20px;line-height:1.5}
+.quiz-options{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.q-opt{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 18px;border-radius:12px;
+  border:1.5px solid var(--grey-b);background:var(--white);
+  cursor:pointer;transition:all 0.15s;font-size:13px;color:var(--navy);
+  font-family:'Poppins',sans-serif;text-align:left;width:100%;
+}
+.q-opt:hover:not(:disabled){border-color:var(--blue-m);background:var(--blue-p);color:var(--blue)}
+.q-opt.correct{border-color:var(--grn);background:var(--grn-l);color:var(--grn);cursor:default}
+.q-opt.wrong{border-color:var(--red);background:var(--red-l);color:var(--red);cursor:default}
+.q-opt:disabled{cursor:default}
+.q-opt .opt-letter{
+  width:26px;height:26px;border-radius:50%;
+  background:var(--grey-m);color:var(--grey-t);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;flex-shrink:0;
+  transition:all 0.15s;
+}
+.q-opt.correct .opt-letter{background:var(--grn);color:#fff}
+.q-opt.wrong .opt-letter{background:var(--red);color:#fff}
+.quiz-feedback{
+  padding:14px 18px;border-radius:12px;font-size:13px;line-height:1.65;
+  display:none;margin-bottom:16px;
+}
+.quiz-feedback.show{display:block}
+.qf-ok{background:var(--grn-l);color:var(--grn);border-left:3px solid var(--grn)}
+.qf-ko{background:var(--red-l);color:var(--red);border-left:3px solid var(--red)}
+.quiz-next{
+  padding:11px 28px;border-radius:10px;border:none;
+  background:var(--blue);color:#fff;font-size:13px;font-weight:600;
+  cursor:pointer;font-family:'Poppins',sans-serif;display:none;
+  transition:background 0.15s;
+}
+.quiz-next.show{display:inline-flex;align-items:center;gap:8px}
+.quiz-next:hover{background:var(--navy)}
+.quiz-progress{
+  display:flex;gap:6px;margin-bottom:24px;
+}
+.qp-dot{width:28px;height:4px;border-radius:2px;background:var(--grey-b);transition:background 0.3s}
+.qp-dot.done{background:var(--grn)}
+.qp-dot.current{background:var(--blue-m)}
+.quiz-score{
+  text-align:center;padding:40px 20px;
+}
+.score-circle{
+  width:120px;height:120px;border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  margin:0 auto 20px;border:6px solid;
+}
+.quiz-final-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 28px;border-radius:12px;border:none;
+  background:var(--blue);color:#fff;font-size:14px;font-weight:600;
+  cursor:pointer;font-family:'Poppins',sans-serif;margin-top:12px;
+  transition:background 0.15s;
+}
+.quiz-final-btn:hover{background:var(--navy)}
+
+/* Checklist */
+.checklist{list-style:none;display:flex;flex-direction:column;gap:8px}
+.checklist li{
+  display:flex;gap:10px;align-items:flex-start;
+  font-size:13px;color:var(--navy);line-height:1.6;
+  padding:10px 14px;background:var(--white);
+  border:1px solid var(--grey-b);border-radius:10px;
+}
+.checklist li i{font-size:16px;flex-shrink:0;margin-top:2px}
+
+/* ── CERTIFICAT SCREEN ── */
+.cert-screen{
+  display:none;position:fixed;inset:0;z-index:999;
+  background:var(--bg);
+  align-items:center;justify-content:center;
+  flex-direction:column;
+}
+.cert-screen.open{display:flex;animation:fadeIn 0.5s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.cert-card{
+  background:var(--white);border-radius:20px;
+  padding:48px 56px;max-width:560px;width:90%;
+  text-align:center;position:relative;
+  box-shadow:0 40px 120px rgba(0,0,0,0.4);
+}
+.cert-top-bar{height:6px;background:linear-gradient(90deg,var(--blue),var(--blue-m),#42A5F5);position:absolute;top:0;left:0;right:0;border-radius:20px 20px 0 0}
+.cert-badge{width:80px;height:80px;border-radius:50%;background:var(--ylw-l);border:4px solid var(--ylw);margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:36px}
+.cert-card h2{font-size:22px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.cert-card .cert-sub{font-size:13px;color:var(--grey-t);margin-bottom:24px}
+.cert-name{font-size:20px;font-weight:700;color:var(--blue);border-bottom:2px solid var(--blue-i);padding-bottom:6px;margin-bottom:24px;display:inline-block}
+.cert-detail{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:28px}
+.cert-detail span{font-size:12px;color:var(--grey-t);display:flex;align-items:center;gap:5px}
+.cert-close{
+  padding:12px 28px;border-radius:12px;border:none;
+  background:var(--navy);color:#fff;font-size:14px;font-weight:600;
+  cursor:pointer;font-family:'Poppins',sans-serif;
+  transition:all 0.15s;
+}
+.cert-close:hover{background:#1a2f4a}
+
+/* ══ ONBOARDING ══ */
+.onboard-screen{
+  position:fixed;inset:0;z-index:9999;
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;overflow:hidden;
+  background:linear-gradient(145deg,#060E18 0%,#0D1B2A 45%,#0a2040 100%);
+}
+.ob-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.ob-blob{position:absolute;border-radius:50%;filter:blur(80px);animation:blobFloat 12s ease-in-out infinite}
+.ob-b1{width:600px;height:600px;background:radial-gradient(circle,rgba(30,136,229,0.22) 0%,transparent 70%);top:-180px;left:-120px;animation-delay:0s}
+.ob-b2{width:450px;height:450px;background:radial-gradient(circle,rgba(66,165,245,0.18) 0%,transparent 70%);bottom:-120px;right:-100px;animation-delay:4s}
+.ob-b3{width:280px;height:280px;background:radial-gradient(circle,rgba(21,101,192,0.28) 0%,transparent 70%);top:38%;left:52%;animation-delay:7s}
+@keyframes blobFloat{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(25px,-35px) scale(1.06)}
+  66%{transform:translate(-18px,22px) scale(0.96)}
+}
+@keyframes cardIn{
+  from{opacity:0;transform:translateY(40px) scale(0.95)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes fadeOutScale{
+  from{opacity:1;transform:scale(1)}
+  to{opacity:0;transform:scale(1.03);pointer-events:none}
+}
+@keyframes shake{
+  0%,100%{transform:translateX(0)}
+  20%{transform:translateX(-9px)}
+  40%{transform:translateX(9px)}
+  60%{transform:translateX(-6px)}
+  80%{transform:translateX(6px)}
+}
+.onboard-card{
+  position:relative;z-index:1;
+  background:rgba(255,255,255,0.04);
+  backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:28px;padding:44px 48px;
+  max-width:520px;width:100%;
+  animation:cardIn 0.7s cubic-bezier(0.34,1.56,0.64,1) forwards;
+  box-shadow:0 40px 120px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.1);
+}
+.ob-logo{margin-bottom:28px;display:flex;justify-content:center}
+.ob-logo img{max-height:64px;max-width:220px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.9}
+.ob-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(30,136,229,0.18);border:1px solid rgba(30,136,229,0.32);
+  color:#64B5F6;border-radius:40px;padding:6px 16px;
+  font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;
+  margin-bottom:18px;
+}
+.ob-title{font-size:clamp(22px,3vw,30px);font-weight:800;color:#fff;line-height:1.25;margin-bottom:10px}
+.ob-highlight{
+  background:linear-gradient(90deg,#42A5F5,#1E88E5);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.ob-sub{font-size:14px;color:rgba(255,255,255,0.5);line-height:1.65;margin-bottom:28px}
+.ob-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ob-field{margin-bottom:14px}
+.ob-label{display:block;font-size:11px;font-weight:700;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:7px}
+.ob-req{color:#EF9A9A;font-size:9px}
+.ob-input{
+  width:100%;padding:12px 15px;
+  background:rgba(255,255,255,0.07);
+  border:1.5px solid rgba(255,255,255,0.1);
+  border-radius:12px;font-family:'Poppins',sans-serif;
+  font-size:13px;color:rgba(255,255,255,0.92);outline:none;transition:all 0.2s;
+}
+.ob-input::placeholder{color:rgba(255,255,255,0.25)}
+.ob-input:focus{border-color:rgba(30,136,229,0.8);background:rgba(30,136,229,0.1);box-shadow:0 0 0 3px rgba(30,136,229,0.18)}
+.ob-error{
+  background:rgba(183,28,28,0.15);border:1px solid rgba(183,28,28,0.3);
+  border-radius:10px;padding:10px 14px;
+  font-size:12px;color:#EF9A9A;margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;
+}
+.ob-btn{
+  width:100%;padding:15px 24px;
+  background:linear-gradient(135deg,#1565C0 0%,#1E88E5 100%);
+  border:none;border-radius:14px;color:#fff;
+  font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;
+  transition:all 0.25s;margin-top:20px;
+  box-shadow:0 8px 32px rgba(21,101,192,0.5);
+  position:relative;overflow:hidden;
+}
+.ob-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.12),transparent);opacity:0;transition:opacity 0.2s}
+.ob-btn:hover{transform:translateY(-2px);box-shadow:0 14px 44px rgba(21,101,192,0.6)}
+.ob-btn:hover::after{opacity:1}
+.ob-btn:active{transform:translateY(0)}
+.ob-footer{
+  display:flex;gap:20px;justify-content:center;
+  margin-top:22px;padding-top:18px;
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+.ob-footer span{font-size:11px;color:rgba(255,255,255,0.3);display:flex;align-items:center;gap:5px}
+.ob-footer i{font-size:13px}
+
+/* ══ DESIGN IMPROVEMENTS ══ */
+.main{background:#EEF2F7 !important}
+.topbar{
+  background:linear-gradient(135deg,var(--navy) 0%,#1a2f4a 100%) !important;
+  border-bottom:none !important;
+  box-shadow:0 2px 12px rgba(0,0,0,0.2);
+}
+.topbar-title{color:#fff !important}
+.topbar-meta{color:rgba(255,255,255,0.45) !important}
+.topbar-user{
+  display:flex;align-items:center;gap:8px;
+  padding:6px 14px;
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:20px;font-size:12px;font-weight:600;color:#fff;
+  white-space:nowrap;
+}
+.topbar-user i{font-size:14px;color:#64B5F6}
+.gp-bar{height:4px !important}
+.gp-fill{background:linear-gradient(90deg,var(--blue-m),#42A5F5,#64B5F6) !important}
+.nav-item.active{background:rgba(30,136,229,0.25) !important}
+.nav-item.active .nav-num{background:linear-gradient(135deg,var(--blue),var(--blue-m)) !important}
+.cert-btn.ready{
+  background:linear-gradient(135deg,#F9A825,#FFB300) !important;
+  box-shadow:0 4px 16px rgba(249,168,37,0.35);
+}
+.cert-btn.ready:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(249,168,37,0.5)}
+.nav-btn.next{background:linear-gradient(135deg,var(--blue),var(--blue-m)) !important;box-shadow:0 4px 14px rgba(21,101,192,0.35)}
+.nav-btn.next:hover{background:var(--navy) !important;box-shadow:0 6px 20px rgba(13,27,42,0.35)}
+.nav-buttons{box-shadow:0 -2px 8px rgba(0,0,0,0.05)}
+.slide-title{font-weight:800 !important}
+.card{transition:transform 0.2s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.2s !important}
+.card:hover{transform:translateY(-5px) !important;box-shadow:0 12px 32px rgba(0,0,0,0.1) !important}
+.bn-item{transition:transform 0.15s,box-shadow 0.15s}
+.bn-item:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.08)}
+.bn-val{font-weight:800 !important}
+.ps-item:hover{box-shadow:0 4px 16px rgba(0,0,0,0.07)}
+.alert-title{font-weight:700 !important}
+.tl-title{font-weight:700 !important}
+.card h3{font-weight:700 !important}
+
+/* Hero slide */
+.hero-slide{
+  background:linear-gradient(160deg,#F5F9FF 0%,#EBF3FD 60%,#F0F7FF 100%);
+  border-radius:20px;position:relative;overflow:hidden;
+}
+.hero-slide::before{
+  content:'';position:absolute;top:-80px;right:-80px;
+  width:320px;height:320px;
+  background:radial-gradient(circle,rgba(30,136,229,0.07) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-slide::after{
+  content:'';position:absolute;bottom:-60px;left:-60px;
+  width:260px;height:260px;
+  background:radial-gradient(circle,rgba(21,101,192,0.05) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-greeting{
+  font-size:15px;color:var(--blue-m);font-weight:700;
+  margin-bottom:4px;display:block;letter-spacing:0.01em;
+}
+.hero-modules{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:8px;margin:0 0 30px;
+  text-align:left;max-width:700px;width:100%;
+}
+.hm-item{
+  background:white;border:1px solid var(--grey-b);
+  border-radius:11px;padding:10px 13px;
+  display:flex;align-items:center;gap:9px;
+  font-size:12px;font-weight:500;color:var(--navy);
+  transition:all 0.2s cubic-bezier(0.34,1.56,0.64,1);
+}
+.hm-item:hover{
+  border-color:var(--blue-m);background:var(--blue-p);
+  color:var(--blue);transform:translateY(-3px);
+  box-shadow:0 4px 16px rgba(30,136,229,0.15);
+}
+.hm-num{
+  width:20px;height:20px;border-radius:50%;
+  background:var(--blue-p);color:var(--blue);
+  font-size:9px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:all 0.2s;
+}
+.hm-item:hover .hm-num{background:var(--blue);color:#fff}
+.start-btn{
+  background:linear-gradient(135deg,var(--blue) 0%,var(--blue-m) 100%) !important;
+  box-shadow:0 8px 28px rgba(21,101,192,0.4) !important;
+  font-weight:700 !important;
+  position:relative;overflow:hidden;
+}
+.start-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.12),transparent);opacity:0;transition:opacity 0.2s}
+.start-btn:hover{transform:translateY(-3px) !important;box-shadow:0 14px 40px rgba(21,101,192,0.5) !important}
+.start-btn:hover::after{opacity:1}
+.cert-top-bar{height:5px;background:linear-gradient(90deg,var(--blue),var(--blue-m),#42A5F5);position:absolute;top:0;left:0;right:0;border-radius:20px 20px 0 0}
+.cert-poste{font-size:12px;color:var(--grey-t);margin-bottom:20px;font-style:italic}
+</style>
+</head>
+<body>
+
+<!-- ═══ ONBOARDING ═══ -->
+<div class="onboard-screen" id="onboard-screen">
+  <div class="ob-bg">
+    <div class="ob-blob ob-b1"></div>
+    <div class="ob-blob ob-b2"></div>
+    <div class="ob-blob ob-b3"></div>
+  </div>
+  <div class="onboard-card">
+    <div class="ob-logo">
+      <img src="Altis 1.png" alt="Altis">
+    </div>
+    <div class="ob-badge"><i class="ti ti-shield-check"></i> Formation HSE obligatoire</div>
+    <h1 class="ob-title">Bienvenue dans votre<br><span class="ob-highlight">formation sécurité</span></h1>
+    <p class="ob-sub">Avant de démarrer, présentez-vous — votre profil sera affiché tout au long de la formation et pré-remplira votre certificat.</p>
+
+    <div class="ob-form">
+      <div class="ob-row">
+        <div class="ob-field">
+          <label class="ob-label">Prénom <span class="ob-req"> </span></label>
+          <input class="ob-input" id="ob-prenom" type="text" placeholder="Votre prénom" autocomplete="given-name"
+            onkeypress="if(event.key==='Enter') document.getElementById('ob-nom').focus()">
+        </div>
+        <div class="ob-field">
+          <label class="ob-label">Nom <span class="ob-req"></span></label>
+          <input class="ob-input" id="ob-nom" type="text" placeholder="Votre nom" autocomplete="family-name"
+            onkeypress="if(event.key==='Enter') document.getElementById('ob-poste').focus()">
+        </div>
+      </div>
+      <div class="ob-field">
+        <label class="ob-label">Poste / Fonction <span class="ob-req"></span></label>
+        <input class="ob-input" id="ob-poste" type="text" placeholder="Ex : Responsable maintenance, Technicien HSE…"
+          onkeypress="if(event.key==='Enter') startFormation()">
+      </div>
+      <div id="ob-error" class="ob-error" style="display:none">
+        <i class="ti ti-alert-circle"></i>
+        <span id="ob-error-text">Veuillez renseigner tous les champs.</span>
+      </div>
+    </div>
+
+    <button class="ob-btn" onclick="startFormation()">
+      Démarrer ma formation <i class="ti ti-arrow-right"></i>
+    </button>
+
+    <div class="ob-footer">
+      <span><i class="ti ti-layout-grid"></i> 10 modules</span>
+      <span><i class="ti ti-clock"></i> ~30 min</span>
+      <span><i class="ti ti-certificate"></i> Certificat inclus</span>
+    </div>
+  </div>
+</div>
+
+<div class="app">
+
+<!-- ═══ SIDEBAR ═══ -->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <img src="Altis 1.png" alt="Altis" style="max-height:56px;max-width:210px;object-fit:contain;filter:brightness(0) invert(1);">
+    </div>
+    <div class="global-progress">
+      <div class="gp-label"><span>Progression</span><span id="pct">0%</span></div>
+      <div class="gp-bar"><div class="gp-fill" id="gp-fill" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav" id="sidebar-nav">
+    <div class="nav-section-title">Introduction</div>
+    <div class="nav-item active" data-slide="0" onclick="goSlide(0)">
+      <div class="nav-num">1</div>
+      <div class="nav-label">Accueil</div>
+      <i class="ti ti-check nav-check"></i>
+    </div>
+    <div class="nav-item" data-slide="1" onclick="goSlide(1)">
+      <div class="nav-num">2</div>
+      <div class="nav-label">Pourquoi un PDP ?</div>
+      <i class="ti ti-check nav-check"></i>
+    </div>
+
+    <div class="nav-section-title">Fondamentaux</div>
+    <div class="nav-item" data-slide="2" onclick="goSlide(2)">
+      <div class="nav-num">3</div>
+      <div class="nav-label">Définitions clés</div>
+      <i class="ti ti-check nav-check"></i>
+    </div>
+    <div class="nav-item" data-slide="3" onclick="goSlide(3)">
+      <div class="nav-num">4</div>
+      <div class="nav-label">Cadre réglementaire</div>
+      <i class="ti ti-check nav-check"></i>
+    </div>
+    <div class="nav-item" data-slide="4" onclick="goSlide(4)">
+      <div class="nav-num">5</div>
+      <div class="nav-label">Quel PDP choisir ?</div>
+      <i class="ti ti-check nav-check"></i>
+    </div>
+
+    <div class="nav-section-title">Mise en œuvre</div>
+    <div class="nav-item" data-slide="5" onclick="goSlide(5)">
+      <div class="nav-num">6</div>
+      <div class="nav-label">L'Inspection Commune</div>
+      <i class="ti ti-check nav-check"></i>
+    </div>
+    <div class="nav-item" data-slide="6" onclick="goSlide(6)">
+      <div class="nav-num">7</div>
+      <div class="nav-label">Remplir le PDP</div>
+      <i class="ti ti-check nav-check"></i>
+    </div>
+    <div class="nav-item" data-slide="7" onclick="goSlide(7)">
+      <div class="nav-num">8</div>
+      <div class="nav-label">Risques &amp; FARC</div>
+      <i class="ti ti-check nav-check"></i>
+    </div>
+    <div class="nav-item" data-slide="8" onclick="goSlide(8)">
+      <div class="nav-num">9</div>
+      <div class="nav-label">Sécurité alimentaire</div>
+      <i class="ti ti-check nav-check"></i>
+    </div>
+
+    <div class="nav-section-title">Évaluation</div>
+    <div class="nav-item" data-slide="9" onclick="goSlide(9)">
+      <div class="nav-num">10</div>
+      <div class="nav-label">Quiz de validation</div>
+      <i class="ti ti-check nav-check"></i>
+    </div>
+  </nav>
+
+  <div class="sidebar-footer">
+    <button class="cert-btn" id="cert-btn" onclick="showCert()" disabled>
+      <i class="ti ti-award"></i> Mon certificat
+    </button>
+  </div>
+</aside>
+
+<!-- ═══ MAIN ═══ -->
+<main class="main">
+  <div class="topbar">
+    <div class="topbar-title" id="topbar-title">Accueil</div>
+    <div class="topbar-meta">
+      <span><i class="ti ti-clock"></i> ~30 min</span>
+      <span><i class="ti ti-book"></i> 10 modules</span>
+      <span><i class="ti ti-certificate"></i> Certificat inclus</span>
+    </div>
+    <div class="topbar-user" id="topbar-user" style="display:none">
+      <i class="ti ti-user-circle"></i>
+      <span id="topbar-name"></span>
+    </div>
+  </div>
+
+  <div class="content" id="content">
+
+    <!-- ═══ SLIDE 0 — ACCUEIL ═══ -->
+    <div class="slide active" id="slide-0">
+      <div class="hero-slide">
+        <span class="hero-greeting" id="hero-greeting"></span>
+        <div class="hero-badge"><i class="ti ti-shield-check"></i> Formation HSE obligatoire</div>
+        <h1>Plan de Prévention<br>Comprendre &amp; Maîtriser</h1>
+        <p class="sub">Ce module vous guide pas à pas dans la compréhension et la mise en œuvre du Plan de Prévention HSE, conformément au Code du travail et aux référentiels BRC / IFS de la Biscuiterie Tour d'Albon.</p>
+
+        <div class="hero-modules">
+          <div class="hm-item"><div class="hm-num">1</div>Pourquoi un PDP ?</div>
+          <div class="hm-item"><div class="hm-num">2</div>Définitions clés</div>
+          <div class="hm-item"><div class="hm-num">3</div>Cadre réglementaire</div>
+          <div class="hm-item"><div class="hm-num">4</div>Quel PDP choisir ?</div>
+          <div class="hm-item"><div class="hm-num">5</div>Inspection Commune</div>
+          <div class="hm-item"><div class="hm-num">6</div>Remplir le PDP</div>
+          <div class="hm-item"><div class="hm-num">7</div>Risques &amp; FARC</div>
+          <div class="hm-item"><div class="hm-num">8</div>Sécurité alimentaire</div>
+          <div class="hm-item"><div class="hm-num">9</div>Quiz de validation</div>
+        </div>
+
+        <div class="hero-stats">
+          <div class="h-stat"><span class="val">10</span><span class="lbl">Modules</span></div>
+          <div class="h-stat"><span class="val">30'</span><span class="lbl">Durée estimée</span></div>
+          <div class="h-stat"><span class="val">2</span><span class="lbl">Modèles PDP</span></div>
+          <div class="h-stat"><span class="val">100%</span><span class="lbl">Réglementaire</span></div>
+        </div>
+        <button class="start-btn" onclick="goSlide(1)">
+          Commencer la formation <i class="ti ti-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══ SLIDE 1 — POURQUOI ═══ -->
+    <div class="slide" id="slide-1">
+      <div class="section-eyebrow">
+        <span class="eyebrow-chip chip-red"><i class="ti ti-alert-triangle"></i> Introduction</span>
+      </div>
+      <h2 class="slide-title">Pourquoi un Plan de Prévention ?</h2>
+      <p class="slide-intro">Chaque année en France, les accidents liés à la coactivité entre entreprises représentent une part significative des accidents du travail graves. Le PDP est la réponse réglementaire à ce risque.</p>
+
+      <div class="alert alert-danger">
+        <i class="ti ti-alert-octagon"></i>
+        <div>
+          <div class="alert-title">Chiffre clé</div>
+          <div class="alert-body">Près de <strong>20% des accidents mortels</strong> du travail surviennent lors d'opérations réalisées par des entreprises extérieures. La coactivité est un facteur aggravant majeur.</div>
+        </div>
+      </div>
+
+      <div class="big-numbers">
+        <div class="bn-item"><span class="bn-val" style="color:var(--red)">400h</span><div class="bn-lbl">Seuil annuel déclenchant un PDP obligatoire</div></div>
+        <div class="bn-item"><span class="bn-val" style="color:var(--ora)">1</span><div class="bn-lbl">Seule personne requise de l'EE pour déclencher l'obligation</div></div>
+        <div class="bn-item"><span class="bn-val" style="color:var(--blue)">15 000€</span><div class="bn-lbl">Amende maximale en cas d'absence de PDP</div></div>
+        <div class="bn-item"><span class="bn-val" style="color:var(--grn)">100%</span><div class="bn-lbl">Des interventions EE sur notre site sont concernées</div></div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="cards-grid cols3">
+        <div class="card">
+          <div class="card-icon ci-red"><i class="ti ti-users"></i></div>
+          <h3>Coactivité</h3>
+          <p>La présence simultanée de personnel EU et EE crée des interférences et des risques spécifiques qu'il faut identifier et maîtriser.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon ci-blue"><i class="ti ti-file-certificate"></i></div>
+          <h3>Obligation légale</h3>
+          <p>Le Code du travail (art. R.4511-1 et suivants) impose la rédaction d'un Plan de Prévention avant toute intervention d'une EE.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon ci-grn"><i class="ti ti-shield"></i></div>
+          <h3>Protection mutuelle</h3>
+          <p>Le PDP protège à la fois les salariés de l'EU et ceux de l'EE en formalisant les règles de sécurité applicables à tous.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SLIDE 2 — DÉFINITIONS ═══ -->
+    <div class="slide" id="slide-2">
+      <div class="section-eyebrow">
+        <span class="eyebrow-chip chip-blue"><i class="ti ti-book"></i> Fondamentaux</span>
+      </div>
+      <h2 class="slide-title">Les définitions à connaître</h2>
+      <p class="slide-intro">Avant de remplir un PDP, il est indispensable de maîtriser le vocabulaire réglementaire utilisé dans tous les formulaires.</p>
+
+      <div class="cards-grid cols2">
+        <div class="card" style="border-top:3px solid var(--blue)">
+          <div class="card-icon ci-blue"><i class="ti ti-building-factory-2"></i></div>
+          <h3>EU — Entreprise Utilisatrice</h3>
+          <p>L'entreprise propriétaire ou gestionnaire du site sur lequel se déroulent les travaux. Elle est responsable de la coordination générale des mesures de prévention.</p>
+          <span class="tag" style="background:var(--blue-p);color:var(--blue)">= Biscuiterie Tour d'Albon</span>
+        </div>
+        <div class="card" style="border-top:3px solid var(--ora)">
+          <div class="card-icon ci-ora"><i class="ti ti-hard-hat"></i></div>
+          <h3>EE — Entreprise Extérieure</h3>
+          <p>Toute entreprise extérieure réalisant des travaux ou des prestations sur le site de l'EU. Ses salariés sont soumis aux règles définies dans le PDP.</p>
+          <span class="tag" style="background:var(--ora-l);color:var(--ora)">= Sous-traitants, prestataires</span>
+        </div>
+        <div class="card" style="border-top:3px solid var(--grn)">
+          <div class="card-icon ci-grn"><i class="ti ti-eye"></i></div>
+          <h3>ICP — Inspection Commune Préalable</h3>
+          <p>Visite obligatoire du site réalisée conjointement par l'EU et l'EE <strong>avant le démarrage</strong> de tout chantier, pour identifier ensemble les risques d'interférence.</p>
+          <span class="tag" style="background:var(--grn-l);color:var(--grn)">Obligatoire avant tout démarrage</span>
+        </div>
+        <div class="card" style="border-top:3px solid var(--ylw)">
+          <div class="card-icon ci-ylw"><i class="ti ti-table"></i></div>
+          <h3>FARC — Fiche d'Analyse des Risques</h3>
+          <p>Document intégré au PDP listant les risques liés à la coactivité EU/EE, les mesures de prévention associées et les responsabilités de chaque partie.</p>
+          <span class="tag" style="background:var(--ylw-l);color:var(--ylw)">Cœur du Plan de Prévention</span>
+        </div>
+        <div class="card" style="border-top:3px solid var(--blue-m)">
+          <div class="card-icon ci-grey"><i class="ti ti-user-check"></i></div>
+          <h3>Donneur d'Ordre (DO)</h3>
+          <p>Le représentant de l'EU qui mandate l'EE. Il est signataire du PDP et responsable de la coordination des mesures de prévention côté EU.</p>
+          <span class="tag" style="background:var(--blue-i);color:var(--blue)">= Munier Quentin / Galiu Nel-Yvon</span>
+        </div>
+        <div class="card" style="border-top:3px solid var(--red)">
+          <div class="card-icon ci-red"><i class="ti ti-medical-cross"></i></div>
+          <h3>SIR — Suivi Individuel Renforcé</h3>
+          <p>Surveillance médicale spécifique imposée pour les travailleurs exposés à certains risques particuliers (électricité, hauteur, amiante...). À documenter dans le PDP.</p>
+          <span class="tag" style="background:var(--red-l);color:var(--red)">Obligatoire si risques spéciaux</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SLIDE 3 — RÉGLEMENTATION ═══ -->
+    <div class="slide" id="slide-3">
+      <div class="section-eyebrow">
+        <span class="eyebrow-chip chip-ora"><i class="ti ti-scale"></i> Réglementation</span>
+      </div>
+      <h2 class="slide-title">Le cadre réglementaire</h2>
+      <p class="slide-intro">Le Plan de Prévention est une obligation légale clairement définie par le Code du travail. Voici les textes que vous devez connaître.</p>
+
+      <div class="law-quote">
+        <div class="law-ref"><i class="ti ti-gavel"></i> Art. R.4512-6 du Code du travail</div>
+        <div class="law-text">« Avant le début des travaux, le chef de l'entreprise utilisatrice et le chef de l'entreprise extérieure [...] procèdent en commun à une inspection préalable des lieux de travail [...] »</div>
+      </div>
+
+      <div class="styled-table" style="border-radius:12px;overflow:hidden;margin:20px 0">
+        <table class="styled-table" style="width:100%">
+          <thead>
+            <tr>
+              <th>Référence</th>
+              <th>Objet</th>
+              <th>Ce que ça impose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Art. R.4511-1 à R.4514-10</strong></td>
+              <td>Opérations réalisées par EE</td>
+              <td>Obligation générale de PDP pour toute intervention d'une EE</td>
+            </tr>
+            <tr>
+              <td><strong>Art. R.4512-7</strong></td>
+              <td>Inspection Commune Préalable</td>
+              <td>ICP obligatoire avant tout démarrage, formalisée par écrit</td>
+            </tr>
+            <tr>
+              <td><strong>Décret n°92-158</strong></td>
+              <td>Prescriptions particulières</td>
+              <td>Mesures d'hygiène et sécurité spécifiques aux EE</td>
+            </tr>
+            <tr>
+              <td><strong>Référentiel BRC/IFS</strong></td>
+              <td>Sécurité alimentaire</td>
+              <td>Exigences spécifiques pour les industries agroalimentaires</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="two-col">
+        <div class="alert alert-warning">
+          <i class="ti ti-alert-triangle"></i>
+          <div>
+            <div class="alert-title">Seuil déclencheur</div>
+            <div class="alert-body">Un PDP est <strong>obligatoire dès qu'une EE réalise des travaux sur le site</strong>, quelle que soit la durée. Le seuil de 400h/an détermine uniquement le type de PDP (ponctuel ou annuel).</div>
+          </div>
+        </div>
+        <div class="alert alert-danger">
+          <i class="ti ti-alert-octagon"></i>
+          <div>
+            <div class="alert-title">Sanctions</div>
+            <div class="alert-body">L'absence de PDP constitue une <strong>infraction pénale</strong> pouvant entraîner une amende jusqu'à 15 000€ et engage la responsabilité civile et pénale du dirigeant.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SLIDE 4 — QUEL PDP ═══ -->
+    <div class="slide" id="slide-4">
+      <div class="section-eyebrow">
+        <span class="eyebrow-chip chip-blue"><i class="ti ti-git-branch"></i> Décision</span>
+      </div>
+      <h2 class="slide-title">Quel modèle de PDP utiliser ?</h2>
+      <p class="slide-intro">La Biscuiterie Tour d'Albon dispose de deux modèles adaptés à chaque situation. Le choix dépend de la fréquence et de la durée des interventions.</p>
+
+      <div class="two-col" style="margin-bottom:24px">
+        <div class="card" style="border:2px solid var(--blue);background:var(--blue-p)">
+          <div class="card-icon ci-blue"><i class="ti ti-clipboard-list"></i></div>
+          <h3 style="color:var(--blue)">PDP Complet</h3>
+          <p><strong>Fichier :</strong> PDP_Complet.xlsm</p>
+          <p style="margin-top:8px">Pour toute intervention <strong>ponctuelle</strong> ou représentant <strong>moins de 400h/an</strong>. Inclut 13 sections avec auto-remplissage.</p>
+          <span class="tag" style="background:var(--blue);color:#fff">Valide : durée de l'intervention</span>
+        </div>
+        <div class="card" style="border:2px solid var(--ora);background:var(--ora-l)">
+          <div class="card-icon ci-ora"><i class="ti ti-calendar-repeat"></i></div>
+          <h3 style="color:var(--ora)">PDP Simplifié (annuel)</h3>
+          <p><strong>Fichier :</strong> PDP_Simplifié.xlsx</p>
+          <p style="margin-top:8px">Pour les entreprises présentes <strong>quasi quotidiennement</strong> ou représentant <strong>400h/an ou plus</strong>. 7 sections essentielles.</p>
+          <span class="tag" style="background:var(--ora);color:#fff">Valide : 1 an — à renouveler</span>
+        </div>
+      </div>
+
+      <div class="styled-table" style="border-radius:12px;overflow:hidden">
+        <table class="styled-table" style="width:100%">
+          <thead><tr><th>Critère</th><th>PDP Complet</th><th>PDP Simplifié</th></tr></thead>
+          <tbody>
+            <tr><td>Nombre de sections</td><td>13 sections</td><td>7 sections</td></tr>
+            <tr><td>Durée de validité</td><td>Durée de l'intervention</td><td>1 an — renouvelable</td></tr>
+            <tr><td>Auto-remplissage EE</td><td>✅ Oui (base de données)</td><td>❌ Saisie manuelle</td></tr>
+            <tr><td>FARC (analyse risques)</td><td>13 risques pré-remplis</td><td>5 risques clés</td></tr>
+            <tr><td>Temps de remplissage</td><td>20 à 30 minutes</td><td>5 à 10 minutes</td></tr>
+            <tr><td>Sécurité alimentaire</td><td>✅ Section dédiée</td><td>✅ Section dédiée</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="alert alert-info" style="margin-top:20px">
+        <i class="ti ti-info-circle"></i>
+        <div>
+          <div class="alert-title">Règle simple à retenir</div>
+          <div class="alert-body">Si vous hésitez, choisissez toujours le <strong>PDP Complet</strong>. Il couvre tous les cas et ne peut pas être "en excès" réglementairement.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SLIDE 5 — ICP ═══ -->
+    <div class="slide" id="slide-5">
+      <div class="section-eyebrow">
+        <span class="eyebrow-chip chip-grn"><i class="ti ti-eye"></i> Mise en œuvre</span>
+      </div>
+      <h2 class="slide-title">L'Inspection Commune Préalable (ICP)</h2>
+      <p class="slide-intro">L'ICP est la première étape concrète du processus PDP. Elle est obligatoire, se fait sur le terrain, et conditionne la qualité de tout ce qui suit.</p>
+
+      <div class="alert alert-success">
+        <i class="ti ti-check"></i>
+        <div>
+          <div class="alert-title">Principe fondamental</div>
+          <div class="alert-body">L'ICP doit se faire <strong>avant tout commencement des travaux</strong>. Elle associe obligatoirement un représentant de l'EU et un représentant de l'EE qui visitent ensemble les lieux d'intervention.</div>
+        </div>
+      </div>
+
+      <div class="process-steps">
+        <div class="ps-item">
+          <div class="ps-num" style="background:var(--blue-p);color:var(--blue)">1</div>
+          <div class="ps-content">
+            <h4>Planifier la visite</h4>
+            <p>Contacter l'EE avant son arrivée sur site. Prévoir un créneau suffisant (30 min à 2h selon la complexité). S'équiper du formulaire PDP vierge.</p>
+            <span class="ps-who" style="background:var(--blue-p);color:var(--blue)">EU — Donneur d'Ordre</span>
+          </div>
+        </div>
+        <div class="ps-item">
+          <div class="ps-num" style="background:var(--blue-p);color:var(--blue)">2</div>
+          <div class="ps-content">
+            <h4>Visiter les zones d'intervention</h4>
+            <p>Parcourir ensemble les lieux où l'EE interviendra. Identifier les zones à risque, les équipements, les voies de circulation et les points de danger potentiels.</p>
+            <span class="ps-who" style="background:var(--ora-l);color:var(--ora)">EU + EE — Ensemble</span>
+          </div>
+        </div>
+        <div class="ps-item">
+          <div class="ps-num" style="background:var(--blue-p);color:var(--blue)">3</div>
+          <div class="ps-content">
+            <h4>Identifier les risques d'interférence</h4>
+            <p>Repérer les situations où les activités EU et EE se croisent ou se superposent dans le temps ou dans l'espace. C'est le cœur de l'ICP.</p>
+            <span class="ps-who" style="background:var(--ora-l);color:var(--ora)">EU + EE — Ensemble</span>
+          </div>
+        </div>
+        <div class="ps-item">
+          <div class="ps-num" style="background:var(--blue-p);color:var(--blue)">4</div>
+          <div class="ps-content">
+            <h4>Remplir et signer le PDP</h4>
+            <p>Formaliser par écrit les risques identifiés et les mesures de prévention retenues. Les deux parties signent le document avant tout démarrage.</p>
+            <span class="ps-who" style="background:var(--blue-p);color:var(--blue)">EU — Donneur d'Ordre</span>
+          </div>
+        </div>
+        <div class="ps-item">
+          <div class="ps-num" style="background:var(--grn-l);color:var(--grn)">5</div>
+          <div class="ps-content">
+            <h4>Remettre une copie à l'EE</h4>
+            <p>L'EE informe l'ensemble de ses intervenants du contenu du PDP avant leur première intervention sur le site. L'original est archivé par l'EU.</p>
+            <span class="ps-who" style="background:var(--grn-l);color:var(--grn)">Les deux entreprises</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SLIDE 6 — REMPLIR LE PDP ═══ -->
+    <div class="slide" id="slide-6">
+      <div class="section-eyebrow">
+        <span class="eyebrow-chip chip-blue"><i class="ti ti-forms"></i> Pratique</span>
+      </div>
+      <h2 class="slide-title">Comment remplir le PDP Complet ?</h2>
+      <p class="slide-intro">Le PDP Complet se remplit en 13 sections dans l'ordre. Voici le guide pas à pas pour ne rien oublier.</p>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot">1</div>
+          <div class="tl-content">
+            <div class="tl-title">Identification du PDP <span class="tl-badge tb-blue">Section 1</span></div>
+            <div class="tl-body">Saisir le numéro du PDP et la date de création. Sélectionner le type (Ponctuel pour PDP_Complet).</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">2</div>
+          <div class="tl-content">
+            <div class="tl-title">Entreprises & interlocuteurs <span class="tl-badge tb-ora">Section 2</span></div>
+            <div class="tl-body">Sélectionner l'EE dans la liste déroulante (cellule E11). Toutes les informations connues s'auto-remplissent en bleu. Compléter les champs jaunes manquants.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">3</div>
+          <div class="tl-content">
+            <div class="tl-title">Désignation des travaux <span class="tl-badge tb-blue">Section 3</span></div>
+            <div class="tl-body">Nature exacte des travaux, lieu d'intervention, équipements à consigner, dates de début et fin, noms de tous les intervenants EE.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">4</div>
+          <div class="tl-content">
+            <div class="tl-title">Moyens & urgence <span class="tl-badge tb-grn">Sections 4-5</span></div>
+            <div class="tl-body">Vérifier les installations mises à disposition (sanitaires, vestiaires...) et compléter les numéros d'urgence manquants (coordinateur, responsable de ligne).</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">5</div>
+          <div class="tl-content">
+            <div class="tl-title">Habilitations & autorisations <span class="tl-badge tb-red">Section 6</span></div>
+            <div class="tl-body">Cocher les habilitations requises (électrique, permis feu, hauteur, CACES...) et vérifier que l'EE les fournira avant le démarrage.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">6</div>
+          <div class="tl-content">
+            <div class="tl-title">FARC — Analyse des risques <span class="tl-badge tb-red">Section 7</span></div>
+            <div class="tl-body">Valider les 13 risques pré-remplis, cocher les responsabilités EU/EE et ajouter les risques spécifiques à cette intervention dans les lignes libres.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot">7</div>
+          <div class="tl-content">
+            <div class="tl-title">EPI & sécurité alimentaire <span class="tl-badge tb-grn">Sections 8-9</span></div>
+            <div class="tl-body">Valider les EPI requis (Oui/Non/N/A) et les consignes BRC/IFS obligatoires, notamment tenue propre, charlotte et protection des lignes.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:var(--grn)">8</div>
+          <div class="tl-content">
+            <div class="tl-title">Signatures <span class="tl-badge tb-grn">Section 13</span></div>
+            <div class="tl-body">Faire signer EU et EE <strong>avant tout démarrage</strong>. Remettre une copie à l'EE. Archiver l'original.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-info" style="margin-top:8px">
+        <i class="ti ti-bulb"></i>
+        <div>
+          <div class="alert-title">Code couleur du formulaire</div>
+          <div class="alert-body"><strong>🟡 Cellule jaune</strong> = à remplir obligatoirement &nbsp;|&nbsp; <strong>🔵 Cellule bleue</strong> = auto-rempli depuis la base &nbsp;|&nbsp; <strong>★</strong> = champ obligatoire</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SLIDE 7 — FARC ═══ -->
+    <div class="slide" id="slide-7">
+      <div class="section-eyebrow">
+        <span class="eyebrow-chip chip-ora"><i class="ti ti-alert-triangle"></i> Risques</span>
+      </div>
+      <h2 class="slide-title">L'analyse des risques — la FARC</h2>
+      <p class="slide-intro">La Fiche d'Analyse des Risques liés à la Coactivité (FARC) est la pièce centrale du PDP. Elle doit être remplie avec rigueur car elle engage la responsabilité des deux entreprises.</p>
+
+      <div class="alert alert-warning">
+        <i class="ti ti-alert-triangle"></i>
+        <div>
+          <div class="alert-title">Principe de la FARC</div>
+          <div class="alert-body">On ne liste pas les risques généraux de chaque entreprise, mais uniquement les <strong>risques d'interférence</strong> : ceux qui surviennent parce que les deux entreprises travaillent au même endroit au même moment.</div>
+        </div>
+      </div>
+
+      <div class="cards-grid cols2" style="margin:20px 0">
+        <div class="card" style="border-left:4px solid var(--red)">
+          <div class="card-icon ci-red"><i class="ti ti-user-x"></i></div>
+          <h3>Risques à identifier</h3>
+          <ul class="checklist" style="margin-top:8px">
+            <li><i class="ti ti-point" style="color:var(--red)"></i>Coactivité / présence simultanée</li>
+            <li><i class="ti ti-point" style="color:var(--red)"></i>Circulation partagée (piétons + engins)</li>
+            <li><i class="ti ti-point" style="color:var(--red)"></i>Travaux en hauteur / chutes</li>
+            <li><i class="ti ti-point" style="color:var(--red)"></i>Risque électrique</li>
+            <li><i class="ti ti-point" style="color:var(--red)"></i>Produits chimiques</li>
+            <li><i class="ti ti-point" style="color:var(--red)"></i>Travaux par point chaud</li>
+          </ul>
+        </div>
+        <div class="card" style="border-left:4px solid var(--grn)">
+          <div class="card-icon ci-grn"><i class="ti ti-shield-check"></i></div>
+          <h3>Mesures de prévention</h3>
+          <ul class="checklist" style="margin-top:8px">
+            <li><i class="ti ti-point" style="color:var(--grn)"></i>Balisage de zone obligatoire</li>
+            <li><i class="ti ti-point" style="color:var(--grn)"></i>Plan de circulation remis</li>
+            <li><i class="ti ti-point" style="color:var(--grn)"></i>Permis feu / hauteur / ATEX</li>
+            <li><i class="ti ti-point" style="color:var(--grn)"></i>Consignation / déconsignation</li>
+            <li><i class="ti ti-point" style="color:var(--grn)"></i>FDS produits chimiques</li>
+            <li><i class="ti ti-point" style="color:var(--grn)"></i>Harnais + ancrages vérifiés</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:12px">Les colonnes de responsabilité</h3>
+      <div class="three-col">
+        <div class="card" style="text-align:center">
+          <div style="font-size:28px;font-weight:700;color:var(--blue);margin-bottom:8px">EU</div>
+          <p style="font-size:12px">L'entreprise utilisatrice est responsable de cette mesure</p>
+        </div>
+        <div class="card" style="text-align:center">
+          <div style="font-size:28px;font-weight:700;color:var(--ora);margin-bottom:8px">EE</div>
+          <p style="font-size:12px">L'entreprise extérieure est responsable de cette mesure</p>
+        </div>
+        <div class="card" style="text-align:center">
+          <div style="font-size:20px;font-weight:700;color:var(--red);margin-bottom:8px">⚠ SIR</div>
+          <p style="font-size:12px">Suivi Individuel Renforcé requis pour les travailleurs exposés</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SLIDE 8 — SÉCU ALIMENTAIRE ═══ -->
+    <div class="slide" id="slide-8">
+      <div class="section-eyebrow">
+        <span class="eyebrow-chip chip-grn"><i class="ti ti-salad"></i> BRC / IFS</span>
+      </div>
+      <h2 class="slide-title">La sécurité alimentaire — spécificité Biscuiterie</h2>
+      <p class="slide-intro">La Biscuiterie Tour d'Albon est certifiée BRC et IFS. Toute intervention d'une EE sur le site doit respecter des exigences alimentaires strictes, complémentaires aux exigences HSE classiques.</p>
+
+      <div class="alert alert-danger">
+        <i class="ti ti-alert-octagon"></i>
+        <div>
+          <div class="alert-title">Règle absolue</div>
+          <div class="alert-body">En cas de pollution ou de suspicion de pollution du produit, alerter <strong>IMMÉDIATEMENT</strong> le Coordinateur de chantier ou le Chef d'équipe de ligne. Aucune exception, aucune hésitation.</div>
+        </div>
+      </div>
+
+      <div class="cards-grid cols2" style="margin:20px 0">
+        <div class="card" style="background:var(--grn-l);border-color:var(--grn-m)">
+          <div class="card-icon" style="background:var(--grn);color:#fff"><i class="ti ti-shirt"></i></div>
+          <h3 style="color:var(--grn)">Tenue obligatoire</h3>
+          <ul class="checklist">
+            <li><i class="ti ti-check" style="color:var(--grn)"></i>Tenue de travail propre et dédiée</li>
+            <li><i class="ti ti-check" style="color:var(--grn)"></i>Charlotte / protection capillaire en zone production</li>
+            <li><i class="ti ti-check" style="color:var(--grn)"></i>Pas de bijoux, montre ou accessoires</li>
+            <li><i class="ti ti-check" style="color:var(--grn)"></i>Pas de vêtements de ville en zone prod.</li>
+          </ul>
+        </div>
+        <div class="card" style="background:var(--grn-l);border-color:var(--grn-m)">
+          <div class="card-icon" style="background:var(--grn);color:#fff"><i class="ti ti-tool"></i></div>
+          <h3 style="color:var(--grn)">Règles d'intervention</h3>
+          <ul class="checklist">
+            <li><i class="ti ti-check" style="color:var(--grn)"></i>Nettoyer roues nacelles avant d'entrer</li>
+            <li><i class="ti ti-check" style="color:var(--grn)"></i>Protéger les lignes avec bâches si travaux en hauteur</li>
+            <li><i class="ti ti-check" style="color:var(--grn)"></i>Aucun corps étranger laissé sur zone</li>
+            <li><i class="ti ti-check" style="color:var(--grn)"></i>Informer le Chef de ligne avant ET après</li>
+          </ul>
+        </div>
+        <div class="card" style="background:var(--blue-p);border-color:var(--blue-i)">
+          <div class="card-icon ci-blue"><i class="ti ti-clipboard-check"></i></div>
+          <h3>Traçabilité requise</h3>
+          <p>Chaque intervention doit être tracée : heure de début, heure de fin, zone concernée, nature exacte des travaux réalisés.</p>
+        </div>
+        <div class="card" style="background:var(--red-l);border-color:#FFCDD2">
+          <div class="card-icon ci-red"><i class="ti ti-x"></i></div>
+          <h3 style="color:var(--red)">Interdictions absolues</h3>
+          <ul class="checklist">
+            <li><i class="ti ti-ban" style="color:var(--red)"></i>Manger ou boire en zone de production</li>
+            <li><i class="ti ti-ban" style="color:var(--red)"></i>Laisser des outils sans surveillance</li>
+            <li><i class="ti ti-ban" style="color:var(--red)"></i>Modifier une installation sans accord EU</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="alert alert-info">
+        <i class="ti ti-award"></i>
+        <div>
+          <div class="alert-title">Certifications BRC & IFS</div>
+          <div class="alert-body">Ces référentiels internationaux garantissent la sécurité alimentaire de nos produits. Tout manquement lors d'une intervention EE peut entraîner un <strong>blocage de lot de production</strong> et compromettre nos certifications.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SLIDE 9 — QUIZ ═══ -->
+    <div class="slide" id="slide-9">
+      <div class="section-eyebrow">
+        <span class="eyebrow-chip chip-ylw"><i class="ti ti-question-mark"></i> Évaluation</span>
+      </div>
+      <h2 class="slide-title">Quiz de validation</h2>
+      <p class="slide-intro">Répondez à ces 12 questions pour valider vos acquis et obtenir votre certificat de formation.</p>
+
+      <div class="quiz-container" id="quiz-area">
+        <div class="quiz-progress" id="quiz-progress">
+          <div class="qp-dot current"></div>
+          <div class="qp-dot"></div>
+          <div class="qp-dot"></div>
+          <div class="qp-dot"></div>
+          <div class="qp-dot"></div>
+        </div>
+
+        <div id="quiz-body"></div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+
+  <div class="nav-buttons">
+    <button class="nav-btn prev" id="btn-prev" onclick="prevSlide()" disabled>
+      <i class="ti ti-arrow-left"></i> Précédent
+    </button>
+    <span class="slide-counter" id="slide-counter">1 / 10</span>
+    <button class="nav-btn next" id="btn-next" onclick="nextSlide()">
+      Suivant <i class="ti ti-arrow-right"></i>
+    </button>
+  </div>
+</main>
+</div>
+
+<!-- ═══ CERTIFICAT ═══ -->
+<div class="cert-screen" id="cert-screen">
+  <div class="cert-card" style="max-width:580px">
+    <div class="cert-top-bar"></div>
+    <div class="cert-badge">🏆</div>
+    <h2>Certificat de formation</h2>
+    <p class="cert-sub">Plan de Prévention HSE — Biscuiterie Tour d'Albon</p>
+    <div class="cert-name" id="cert-name-display">Participant</div>
+    <div class="cert-poste" id="cert-poste-display"></div>
+    <div class="cert-detail">
+      <span><i class="ti ti-calendar"></i> <span id="cert-date"></span></span>
+      <span><i class="ti ti-clock"></i> ~30 minutes</span>
+      <span><i class="ti ti-award"></i> Score : <span id="cert-score">--</span>/<span id="cert-total">12</span></span>
+    </div>
+    <p style="font-size:12px;color:var(--grey-t);margin-bottom:20px;line-height:1.6">
+      Certifie que le titulaire a complété avec succès la formation sur le processus Plan de Prévention HSE et maîtrise les obligations réglementaires associées.
+    </p>
+
+    <!-- FORMULAIRE EMAIL -->
+    <div style="height:1px;background:var(--grey-b);margin:16px 0"></div>
+    <p style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:12px;display:flex;align-items:center;gap:8px">
+      <i class="ti ti-mail" style="color:var(--blue)"></i> Recevoir mon certificat par email
+    </p>
+
+    <!-- Nom (pré-rempli depuis l'identification) -->
+    <div style="margin-bottom:10px">
+      <label style="font-size:11px;font-weight:600;color:var(--grey-t);display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.05em">Participant</label>
+      <div style="padding:10px 14px;background:var(--blue-p);border:1.5px solid var(--blue-i);border-radius:10px;font-size:13px;font-weight:600;color:var(--blue);display:flex;align-items:center;gap:8px">
+        <i class="ti ti-user-check"></i>
+        <span id="cert-name-prefilled">—</span>
+      </div>
+      <input type="hidden" id="input-name">
+    </div>
+
+    <!-- Email -->
+    <div style="margin-bottom:14px">
+      <label style="font-size:11px;font-weight:600;color:var(--grey-t);display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.05em">Votre adresse email ★</label>
+      <input type="email" id="input-email" placeholder="prenom.nom@entreprise.fr"
+        style="width:100%;padding:10px 14px;border:1.5px solid var(--grey-b);border-radius:10px;font-family:Poppins,sans-serif;font-size:13px;color:var(--navy);outline:none;transition:border 0.2s;background:#fff"
+        onfocus="this.style.borderColor='#1E88E5'"
+        onblur="this.style.borderColor='#DDDDDD'"
+        onkeypress="if(event.key==='Enter') sendCertEmail()">
+    </div>
+
+    <!-- Boutons -->
+    <div style="display:flex;gap:10px;margin-bottom:10px">
+      <button onclick="sendCertEmail()"
+        style="flex:1;padding:12px;border-radius:10px;border:none;background:#1565C0;color:#fff;font-size:13px;font-weight:600;font-family:Poppins,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.15s"
+        onmouseover="this.style.background='#0D1B2A'" onmouseout="this.style.background='#1565C0'">
+        <i class="ti ti-mail-forward"></i> Ouvrir dans ma messagerie
+      </button>
+      <button onclick="copyCert()"
+        title="Copier le certificat"
+        style="padding:12px 16px;border-radius:10px;border:1.5px solid #DDDDDD;background:#fff;color:#888;font-size:13px;font-family:Poppins,sans-serif;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all 0.15s"
+        onmouseover="this.style.borderColor='#1E88E5';this.style.color='#1565C0'" onmouseout="this.style.borderColor='#DDDDDD';this.style.color='#888'">
+        <i class="ti ti-copy" id="copy-icon"></i>
+      </button>
+    </div>
+
+    <!-- Message retour -->
+    <div id="send-feedback" style="display:none;padding:10px 14px;border-radius:10px;font-size:12px;font-weight:500;margin-bottom:10px"></div>
+
+    <button class="cert-close" onclick="closeCert()" style="width:100%;background:#F5F5F5;color:#888;border:none;padding:10px;border-radius:10px;font-family:Poppins,sans-serif;font-size:13px;cursor:pointer">
+      Fermer
+    </button>
+  </div>
+</div>
+
+<script>
+// ═══ PROFIL UTILISATEUR ═══
+let userPrenom = '';
+let userNom = '';
+let userPoste = '';
+
+function startFormation() {
+  const prenom = document.getElementById('ob-prenom').value.trim();
+  const nom    = document.getElementById('ob-nom').value.trim();
+  const poste  = document.getElementById('ob-poste').value.trim();
+  const err    = document.getElementById('ob-error');
+
+  if (!prenom || !nom || !poste) {
+    err.style.display = 'flex';
+    document.getElementById('ob-error-text').textContent = 'Veuillez renseigner tous les champs pour continuer.';
+    const card = document.querySelector('.onboard-card');
+    card.style.animation = 'none';
+    card.offsetHeight;
+    card.style.animation = 'shake 0.4s';
+    return;
+  }
+
+  err.style.display = 'none';
+  userPrenom = prenom;
+  userNom    = nom;
+  userPoste  = poste;
+
+  const fullName = prenom + ' ' + nom;
+
+  // Personnalise le hero
+  const greet = document.getElementById('hero-greeting');
+  if (greet) greet.textContent = 'Bonjour ' + prenom + ' 👋';
+
+  // Topbar
+  const tbu = document.getElementById('topbar-user');
+  const tbn = document.getElementById('topbar-name');
+  if (tbu && tbn) { tbn.textContent = fullName; tbu.style.display = 'flex'; }
+
+  // Certificat
+  document.getElementById('cert-name-display').textContent = fullName;
+  document.getElementById('cert-name-prefilled').textContent = fullName;
+  document.getElementById('input-name').value = fullName;
+  const cp = document.getElementById('cert-poste-display');
+  if (cp) cp.textContent = poste;
+
+  // Ferme l'onboarding
+  const screen = document.getElementById('onboard-screen');
+  screen.style.animation = 'fadeOutScale 0.5s ease forwards';
+  setTimeout(() => { screen.style.display = 'none'; }, 500);
+}
+
+// ═══ DONNÉES ═══
+const SLIDES = [
+  {title:'Accueil',time:'2 min'},
+  {title:'Pourquoi un PDP ?',time:'4 min'},
+  {title:'Définitions clés',time:'4 min'},
+  {title:'Cadre réglementaire',time:'3 min'},
+  {title:'Quel PDP choisir ?',time:'3 min'},
+  {title:'Inspection Commune (ICP)',time:'3 min'},
+  {title:'Remplir le PDP',time:'4 min'},
+  {title:'Risques & FARC',time:'4 min'},
+  {title:'Sécurité alimentaire',time:'3 min'},
+  {title:'Quiz de validation',time:'5 min'},
+];
+
+const QUIZ = [
+  // ── Définitions ──────────────────────────────────────────────────
+  {
+    q:"Qu'est-ce que l'EU dans le cadre d'un Plan de Prévention ?",
+    opts:[
+      "L'Entreprise Urgente mobilisée en cas d'accident",
+      "L'Entreprise Utilisatrice — propriétaire ou gestionnaire du site",
+      "L'Entreprise Unique mandatée pour les travaux",
+      "L'Évaluation Unique des risques professionnels",
+    ],
+    ans:1,
+    ok:"Exact ! L'EU (Entreprise Utilisatrice), c'est la Biscuiterie Tour d'Albon. Elle est responsable de la coordination générale des mesures de prévention sur son site.",
+    ko:"EU signifie Entreprise Utilisatrice — c'est la Biscuiterie Tour d'Albon, responsable de la coordination des mesures de prévention.",
+  },
+  {
+    q:"Que désigne l'acronyme EE dans le Plan de Prévention ?",
+    opts:[
+      "Équipe d'Encadrement chargée de la supervision",
+      "Entreprise Extérieure réalisant des travaux ou prestations sur le site",
+      "Évaluation des Équipements avant intervention",
+      "Employé Externe enregistré dans le registre d'accès",
+    ],
+    ans:1,
+    ok:"Bien vu ! L'EE (Entreprise Extérieure) désigne tout sous-traitant ou prestataire intervenant sur le site. Ses salariés sont soumis aux règles définies dans le PDP.",
+    ko:"EE = Entreprise Extérieure — tout sous-traitant ou prestataire intervenant sur le site de la Biscuiterie. Ses salariés doivent respecter les règles du PDP.",
+  },
+  {
+    q:"Que signifie FARC dans le contexte du Plan de Prévention ?",
+    opts:[
+      "Fiche Administrative de Risques Courants",
+      "Fiche d'Analyse des Risques liés à la Coactivité",
+      "Formation Avancée aux Risques Chimiques",
+      "Formulaire d'Autorisation de Risques Critiques",
+    ],
+    ans:1,
+    ok:"Très bien ! FARC = Fiche d'Analyse des Risques liés à la Coactivité. C'est le cœur du PDP — elle liste les risques d'interférence EU/EE et les mesures de prévention associées.",
+    ko:"FARC = Fiche d'Analyse des Risques liés à la Coactivité. C'est la pièce centrale du PDP, qui engage la responsabilité des deux entreprises.",
+  },
+  {
+    q:"Que signifie l'acronyme SIR dans le cadre du PDP ?",
+    opts:[
+      "Système d'Inspection des Risques",
+      "Suivi Individuel Renforcé",
+      "Section d'Intervention Réglementaire",
+      "Service Interne de Référence HSE",
+    ],
+    ans:1,
+    ok:"Correct ! Le SIR (Suivi Individuel Renforcé) est une surveillance médicale spécifique obligatoire pour les travailleurs exposés à des risques particuliers : électricité, travail en hauteur, amiante...",
+    ko:"SIR = Suivi Individuel Renforcé — une surveillance médicale renforcée pour les travailleurs exposés à des risques spécifiques (électricité, hauteur, amiante). À documenter dans le PDP.",
+  },
+  // ── Réglementation ───────────────────────────────────────────────
+  {
+    q:"Quel article du Code du travail impose l'Inspection Commune Préalable (ICP) ?",
+    opts:["Art. L.4121-1","Art. R.4512-6","Art. R.4511-1","Décret n°92-158"],
+    ans:1,
+    ok:"Exact ! L'Art. R.4512-6 impose spécifiquement la réalisation d'une inspection préalable en commun avant le début des travaux.",
+    ko:"C'est l'Art. R.4512-6 du Code du travail qui rend obligatoire l'Inspection Commune Préalable avant tout démarrage.",
+  },
+  {
+    q:"Quelle est la sanction maximale pour absence de Plan de Prévention ?",
+    opts:[
+      "1 500€ d'amende",
+      "5 000€ d'amende",
+      "15 000€ d'amende et responsabilité pénale du dirigeant",
+      "Simple avertissement de l'inspection du travail",
+    ],
+    ans:2,
+    ok:"Correct ! L'absence de PDP constitue une infraction pénale pouvant entraîner jusqu'à 15 000€ d'amende et engage la responsabilité civile et pénale du dirigeant.",
+    ko:"L'absence de PDP = infraction pénale pouvant entraîner 15 000€ d'amende et la responsabilité personnelle du dirigeant. Ce n'est pas une simple formalité.",
+  },
+  // ── Modèles & seuils ─────────────────────────────────────────────
+  {
+    q:"À partir de quel seuil d'heures par an utilise-t-on le PDP Simplifié (annuel) ?",
+    opts:["200h/an","300h/an","400h/an","500h/an"],
+    ans:2,
+    ok:"Bravo ! Le seuil de 400h/an distingue le PDP ponctuel (PDP Complet) du PDP Simplifié annuel.",
+    ko:"Le seuil est de 400h/an. En dessous, ou pour toute intervention ponctuelle, on utilise le PDP Complet.",
+  },
+  {
+    q:"Combien de sections comporte le PDP Complet (PDP_Complet.xlsm) ?",
+    opts:["7 sections","10 sections","13 sections","15 sections"],
+    ans:2,
+    ok:"Exact ! Le PDP Complet comporte 13 sections avec auto-remplissage depuis la base EE. Le PDP Simplifié n'en comporte que 7.",
+    ko:"Le PDP Complet comporte 13 sections (dont la FARC avec 13 risques pré-remplis). Le PDP Simplifié en a seulement 7.",
+  },
+  {
+    q:"Quelle est la durée de validité du PDP Simplifié (annuel) ?",
+    opts:["3 mois","6 mois","1 an — à renouveler","Durée de l'intervention uniquement"],
+    ans:2,
+    ok:"Exact ! Le PDP Simplifié est valide 1 an et doit être renouvelé à échéance. Le PDP Complet, lui, est valide pour la seule durée de l'intervention.",
+    ko:"Le PDP Simplifié est valide 1 an (à renouveler). C'est lui qu'on utilise pour les EE présentes ≥ 400h/an sur notre site.",
+  },
+  // ── ICP & remplissage ────────────────────────────────────────────
+  {
+    q:"Lors de l'Inspection Commune Préalable (ICP), qui doit obligatoirement participer ?",
+    opts:[
+      "Uniquement le Donneur d'Ordre de l'EU",
+      "Uniquement le responsable sécurité de l'EE",
+      "Un représentant de l'EU et un représentant de l'EE, ensemble sur le terrain",
+      "L'inspection du travail, l'EU et l'EE réunies",
+    ],
+    ans:2,
+    ok:"Parfait ! L'ICP est une démarche conjointe : un représentant de l'EU ET un représentant de l'EE doivent parcourir ensemble les zones d'intervention avant tout démarrage.",
+    ko:"L'ICP doit obligatoirement associer un représentant de l'EU ET un représentant de l'EE — c'est une démarche conjointe, pas unilatérale.",
+  },
+  {
+    q:"Dans le formulaire PDP de la Biscuiterie, que signifie une cellule en jaune ?",
+    opts:[
+      "Information auto-remplie depuis la base de données EE",
+      "Champ facultatif, à remplir si disponible",
+      "Champ à remplir obligatoirement",
+      "Donnée à valider par le service HSE avant signature",
+    ],
+    ans:2,
+    ok:"Correct ! Cellule jaune = à remplir obligatoirement. Cellule bleue = auto-remplie depuis la base EE. Ce code couleur permet de ne rien oublier.",
+    ko:"Les cellules jaunes = à remplir obligatoirement. Les bleues = auto-remplies depuis la base EE. Retenir ce code couleur est indispensable pour remplir correctement le PDP.",
+  },
+  // ── Sécurité alimentaire ─────────────────────────────────────────
+  {
+    q:"En cas de suspicion de contamination alimentaire, que doit faire immédiatement l'intervenant EE ?",
+    opts:[
+      "Continuer les travaux et signaler à la fin de l'intervention",
+      "Prévenir son responsable EE uniquement",
+      "Alerter immédiatement le Coordinateur EU ou le Chef d'équipe de ligne",
+      "Remplir un rapport et l'envoyer par mail dans la journée",
+    ],
+    ans:2,
+    ok:"Parfait ! Toute contamination ou suspicion doit être signalée IMMÉDIATEMENT au Coordinateur EU ou Chef d'équipe de ligne. Aucune hésitation, aucune exception.",
+    ko:"En cas de contamination, il faut alerter IMMÉDIATEMENT le Coordinateur EU ou le Chef d'équipe de ligne — pas attendre, ni passer uniquement par la hiérarchie EE.",
+  },
+  {
+    q:"Parmi ces règles BRC/IFS, laquelle est obligatoire pour tout intervenant EE en zone de production de la Biscuiterie ?",
+    opts:[
+      "Porter un gilet de sécurité fluorescent en permanence",
+      "Porter une charlotte / protection capillaire et une tenue de travail propre, sans bijoux ni montre",
+      "Être accompagné d'un salarié EU en permanence",
+      "Présenter son carnet de santé à l'entrée de chaque visite",
+    ],
+    ans:1,
+    ok:"Exact ! En zone de production, la charlotte et la tenue propre sont obligatoires. Les bijoux et montres sont interdits — risque de corps étranger dans le produit. Exigence BRC/IFS non négociable.",
+    ko:"En zone de production, tout intervenant EE doit porter une charlotte et une tenue de travail propre, sans bijoux ni montre. Non-respect = risque de blocage de lot et perte de certification.",
+  },
+];
+
+// ═══ STATE ═══
+let currentSlide = 0;
+let visited = new Set([0]);
+let quizQ = 0;
+let quizScore = 0;
+let quizDone = false;
+let quizAnswered = false;
+
+// ═══ NAVIGATION ═══
+function goSlide(n) {
+  document.getElementById('slide-'+currentSlide).classList.remove('active');
+  document.querySelectorAll('.nav-item')[currentSlide].classList.add('done');
+  currentSlide = n;
+  visited.add(n);
+  document.getElementById('slide-'+n).classList.add('active');
+  document.getElementById('content').scrollTop = 0;
+  updateUI();
+  if (n === 9 && !quizDone) initQuiz();
+}
+
+function nextSlide() { if (currentSlide < SLIDES.length-1) goSlide(currentSlide+1); }
+function prevSlide() { if (currentSlide > 0) goSlide(currentSlide-1); }
+
+function updateUI() {
+  const n = currentSlide;
+  document.getElementById('topbar-title').textContent = SLIDES[n].title;
+  document.getElementById('slide-counter').textContent = (n+1)+' / '+SLIDES.length;
+  document.getElementById('btn-prev').disabled = n === 0;
+  document.getElementById('btn-next').disabled = n === SLIDES.length-1;
+
+  document.querySelectorAll('.nav-item').forEach((el,i) => {
+    el.classList.toggle('active', i===n);
+  });
+
+  const pct = Math.round((visited.size / SLIDES.length)*100);
+  document.getElementById('pct').textContent = pct+'%';
+  document.getElementById('gp-fill').style.width = pct+'%';
+
+  if (visited.size === SLIDES.length && quizDone) {
+    const btn = document.getElementById('cert-btn');
+    btn.classList.add('ready');
+    btn.disabled = false;
+  }
+}
+
+// ═══ QUIZ ═══
+function initQuiz() {
+  quizQ = 0; quizScore = 0; quizAnswered = false;
+  renderQ();
+}
+
+function renderQ() {
+  if (quizQ >= QUIZ.length) { showScore(); return; }
+  const q = QUIZ[quizQ];
+  const dots = document.getElementById('quiz-progress');
+  dots.innerHTML = QUIZ.map((_,i) =>
+    `<div class="qp-dot ${i<quizQ?'done':i===quizQ?'current':''}"></div>`
+  ).join('');
+
+  const letters = ['A','B','C','D'];
+  document.getElementById('quiz-body').innerHTML = `
+    <div class="quiz-q">Question ${quizQ+1} sur ${QUIZ.length}<br>${q.q}</div>
+    <div class="quiz-options">
+      ${q.opts.map((o,i)=>`
+        <button class="q-opt" onclick="answer(${i})" data-i="${i}">
+          <span class="opt-letter">${letters[i]}</span>${o}
+        </button>`).join('')}
+    </div>
+    <div class="quiz-feedback" id="qfb"></div>
+    <button class="quiz-next" id="qnext" onclick="nextQ()">
+      ${quizQ<QUIZ.length-1?'Question suivante <i class="ti ti-arrow-right"></i>':'Voir mes résultats <i class="ti ti-award"></i>'}
+    </button>`;
+}
+
+function answer(i) {
+  if (quizAnswered) return;
+  quizAnswered = true;
+  const q = QUIZ[quizQ];
+  const opts = document.querySelectorAll('.q-opt');
+  opts.forEach(o => o.disabled = true);
+  const chosen = document.querySelector(`.q-opt[data-i="${i}"]`);
+  const correct = document.querySelector(`.q-opt[data-i="${q.ans}"]`);
+  const fb = document.getElementById('qfb');
+  const nxt = document.getElementById('qnext');
+
+  if (i === q.ans) {
+    chosen.classList.add('correct');
+    quizScore++;
+    fb.className = 'quiz-feedback show qf-ok';
+    fb.innerHTML = '<strong>✓ Bonne réponse !</strong><br>'+q.ok;
+  } else {
+    chosen.classList.add('wrong');
+    correct.classList.add('correct');
+    fb.className = 'quiz-feedback show qf-ko';
+    fb.innerHTML = '<strong>✗ Pas tout à fait.</strong><br>'+q.ko;
+  }
+  nxt.classList.add('show');
+}
+
+function nextQ() {
+  quizQ++;
+  quizAnswered = false;
+  renderQ();
+}
+
+const SCORE_MIN = 8;
+
+function showScore() {
+  const passed = quizScore >= SCORE_MIN;
+  quizDone = passed;
+  const pct = Math.round((quizScore/QUIZ.length)*100);
+  const col = quizScore === QUIZ.length ? 'var(--grn)' : passed ? 'var(--ylw)' : 'var(--red)';
+  document.getElementById('cert-total').textContent = QUIZ.length;
+  const msg = quizScore === QUIZ.length ? 'Excellent ! Formation validée ✓'
+            : passed ? 'Formation validée — score minimum atteint ✓'
+            : `Score insuffisant — il faut au moins ${SCORE_MIN}/${QUIZ.length} pour obtenir le certificat.`;
+  const sub = passed
+    ? 'Résultat enregistré. Vous pouvez maintenant accéder à votre certificat.'
+    : 'Veuillez repasser le quiz pour valider votre formation.';
+  document.getElementById('quiz-progress').innerHTML = '';
+  document.getElementById('quiz-body').innerHTML = `
+    <div class="quiz-score">
+      <div class="score-circle" style="border-color:${col}">
+        <span style="font-size:28px;font-weight:700;color:${col}">${quizScore}/${QUIZ.length}</span>
+        <span style="font-size:11px;color:var(--grey-t)">${pct}%</span>
+      </div>
+      <h3 style="font-size:18px;font-weight:700;color:var(--navy);margin-bottom:8px">${msg}</h3>
+      <p style="font-size:13px;color:var(--grey-t);margin-bottom:24px">${sub}</p>
+      <button class="quiz-final-btn" style="background:var(--grey-l);color:var(--navy);margin-right:10px" onclick="initQuiz()">
+        <i class="ti ti-refresh"></i> Recommencer
+      </button>
+      ${passed ? `<button class="quiz-final-btn" onclick="showCert()"><i class="ti ti-award"></i> Voir mon certificat</button>` : ''}
+    </div>`;
+  document.getElementById('cert-score').textContent = quizScore;
+  visited.add(9);
+  updateUI();
+}
+
+// ═══ CERTIFICAT ═══
+let certDate = '';
+
+function showCert() {
+  const d = new Date();
+  certDate = d.toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'});
+  document.getElementById('cert-date').textContent = certDate;
+
+  // S'assure que le nom et le poste sont bien affichés
+  if (userPrenom) {
+    const fullName = userPrenom + ' ' + userNom;
+    document.getElementById('cert-name-display').textContent = fullName;
+    document.getElementById('cert-name-prefilled').textContent = fullName;
+    document.getElementById('input-name').value = fullName;
+    const cp = document.getElementById('cert-poste-display');
+    if (cp) cp.textContent = userPoste;
+  }
+
+  document.getElementById('cert-screen').classList.add('open');
+  document.getElementById('send-feedback').style.display = 'none';
+  document.getElementById('copy-icon').className = 'ti ti-copy';
+}
+
+function syncName(val) {
+  document.getElementById('cert-name-display').textContent = val.trim() || (userPrenom ? userPrenom + ' ' + userNom : 'Participant');
+}
+
+function closeCert() {
+  document.getElementById('cert-screen').classList.remove('open');
+}
+
+function buildCertText() {
+  const name    = document.getElementById('input-name').value.trim() || 'Participant';
+  const score   = parseInt(document.getElementById('cert-score').textContent) || quizScore;
+  const total   = QUIZ.length;
+  const pct     = Math.round((score / total) * 100);
+  const mention = score === total ? 'Validé avec succès ✓'
+                : score >= SCORE_MIN ? 'Validé — score minimum atteint'
+                :                     'Non validé — formation à recommencer';
+  return { name, score, total, pct, mention };
+}
+
+function sendCertEmail() {
+  // ─── ADRESSE DESTINATAIRE HSE ─────────────────────────────────
+  const DEST_RH = 'hse@biscuiterie-touralbon.fr';  // <- modifier ici
+  // ─────────────────────────────────────────────────────────────
+
+  const name  = document.getElementById('input-name').value.trim();
+  const email = document.getElementById('input-email').value.trim();
+
+  if (!name) {
+    showFeedback('error', 'Veuillez saisir votre prénom et nom.');
+    document.getElementById('input-name').focus(); return;
+  }
+  if (!email || !email.includes('@') || !email.includes('.')) {
+    showFeedback('error', 'Veuillez saisir une adresse email valide.');
+    document.getElementById('input-email').focus(); return;
+  }
+
+  const { score, total, pct, mention } = buildCertText();
+
+  const lignes = [
+    'Bonjour,',
+    '',
+    name + ' a complété avec succès la formation Plan de Prévention HSE.',
+    '',
+    '======================================',
+    '      CERTIFICAT DE FORMATION HSE',
+    '======================================',
+    '',
+    'Formation   : Plan de Prévention Ponctuel HSE',
+    'Organisme   : Biscuiterie Tour d\'Albon — Z.I. Rapon, 26140 ANNEYRON',
+    '',
+    'Participant : ' + name,
+    'Email       : ' + email,
+    'Date        : ' + certDate,
+    'Duree       : ~30 minutes',
+    '',
+    '--------------------------------------',
+    'Score       : ' + score + ' / ' + total + '  (' + pct + '%)',
+    'Mention     : ' + mention,
+    '--------------------------------------',
+    '',
+    'Modules valides :',
+    '  1. Pourquoi un PDP ?',
+    '  2. Definitions cles (EU, EE, ICP, FARC)',
+    '  3. Cadre reglementaire',
+    '  4. Choix du modele PDP',
+    '  5. Inspection Commune Prealable (ICP)',
+    '  6. Remplir le PDP Complet',
+    '  7. Analyse des risques (FARC)',
+    '  8. Securite alimentaire BRC / IFS',
+    '',
+    'Ref. document : SME_ENA_11b — Form-HSE-041',
+    '',
+    '======================================',
+    'Certificat genere par le module e-learning HSE',
+    'Biscuiterie Tour d\'Albon',
+    '',
+    'Cordialement,',
+    name,
+  ];
+
+  const subject = encodeURIComponent(
+    '[Formation HSE] Certificat de ' + name + ' — ' + pct + '% (' + mention + ')'
+  );
+  const body = encodeURIComponent(lignes.join('\n'));
+
+  window.location.href =
+    'mailto:' + email +
+    '?cc=' + encodeURIComponent(DEST_RH) +
+    '&subject=' + subject +
+    '&body=' + body;
+
+  showFeedback('success',
+    'Votre messagerie va s\'ouvrir avec le certificat pret a envoyer. ' +
+    'Une copie sera envoyee automatiquement a ' + DEST_RH + '.'
+  );
+}
+
+async function copyCert() {
+  const { name, score, total, pct, mention } = buildCertText();
+  const nameVal = document.getElementById('input-name').value.trim() || 'Participant';
+  const text =
+`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   CERTIFICAT DE FORMATION HSE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Formation  : Plan de Prévention Ponctuel HSE
+Organisme  : Biscuiterie Tour d'Albon
+Participant: ${nameVal}
+Date       : ${certDate}
+Score      : ${score}/${total} (${pct}%)
+Mention    : ${mention}
+
+Réf. : SME_ENA_11b — Form-HSE-041`;
+
+  try {
+    await navigator.clipboard.writeText(text);
+    document.getElementById('copy-icon').className = 'ti ti-check';
+    showFeedback('success', '✓ Certificat copié dans le presse-papier ! Collez-le où vous souhaitez (email, Word, Teams...).');
+    setTimeout(() => document.getElementById('copy-icon').className = 'ti ti-copy', 2500);
+  } catch(e) {
+    showFeedback('error', 'Copie non disponible dans ce navigateur.');
+  }
+}
+
+function showFeedback(type, msg) {
+  const fb = document.getElementById('send-feedback');
+  const styles = {
+    success : 'background:#F1F8E9;color:#2E7D32;border:1px solid #A5D6A7',
+    error   : 'background:#FFEBEE;color:#B71C1C;border:1px solid #FFCDD2',
+  };
+  fb.style.cssText = 'display:block;padding:10px 14px;border-radius:10px;font-size:12px;font-weight:500;text-align:left;line-height:1.6;margin-bottom:8px;' + (styles[type] || styles.error);
+  fb.textContent = msg;
+}
+
+// Init
+updateUI();
+</script>
+</body>
+</html>
