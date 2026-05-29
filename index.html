@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Formation — Plan de Prévention HSE</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -409,7 +410,7 @@ html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);colo
   text-align:center;position:relative;
   box-shadow:0 40px 120px rgba(0,0,0,0.4);
 }
-.{height:6px;background:linear-gradient(90deg,var(--blue),var(--blue-m),#42A5F5);position:absolute;top:0;left:0;right:0;border-radius:20px 20px 0 0}
+.cert-top-bar{height:6px;background:linear-gradient(90deg,var(--blue),var(--blue-m),#42A5F5);position:absolute;top:0;left:0;right:0;border-radius:20px 20px 0 0}
 .cert-badge{width:80px;height:80px;border-radius:50%;background:var(--ylw-l);border:4px solid var(--ylw);margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:36px}
 .cert-card h2{font-size:22px;font-weight:700;color:var(--navy);margin-bottom:8px}
 .cert-card .cert-sub{font-size:13px;color:var(--grey-t);margin-bottom:24px}
@@ -618,7 +619,7 @@ html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);colo
 .start-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.12),transparent);opacity:0;transition:opacity 0.2s}
 .start-btn:hover{transform:translateY(-3px) !important;box-shadow:0 14px 40px rgba(21,101,192,0.5) !important}
 .start-btn:hover::after{opacity:1}
-.{height:5px;background:linear-gradient(90deg,var(--blue),var(--blue-m),#42A5F5);position:absolute;top:0;left:0;right:0;border-radius:20px 20px 0 0}
+.cert-top-bar{height:5px;background:linear-gradient(90deg,var(--blue),var(--blue-m),#42A5F5);position:absolute;top:0;left:0;right:0;border-radius:20px 20px 0 0}
 .cert-poste{font-size:12px;color:var(--grey-t);margin-bottom:20px;font-style:italic}
 </style>
 </head>
@@ -633,10 +634,10 @@ html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);colo
   </div>
   <div class="onboard-card">
     <div class="ob-logo">
-      <img src="Altis1.png" alt="Altis">
+      <img src="Altis 1.png" alt="Altis">
     </div>
     <div class="ob-badge"><i class="ti ti-shield-check"></i> Formation HSE obligatoire</div>
-    <h1 class="ob-title">Bienvenue dans votre<br><span class="ob-highlight">formation sur le PDP</span></h1>
+    <h1 class="ob-title">Bienvenue dans votre<br><span class="ob-highlight">formation sécurité</span></h1>
     <p class="ob-sub">Avant de démarrer, présentez-vous — votre profil sera affiché tout au long de la formation et pré-remplira votre certificat.</p>
 
     <div class="ob-form">
@@ -1347,11 +1348,11 @@ html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);colo
     </div>
 
     <!-- Boutons -->
-    <div style="display:flex;gap:10px;margin-bottom:10px">
+    <div style="display:flex;gap:10px;margin-bottom:6px">
       <button onclick="sendCertEmail()"
         style="flex:1;padding:12px;border-radius:10px;border:none;background:#1565C0;color:#fff;font-size:13px;font-weight:600;font-family:Poppins,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.15s"
         onmouseover="this.style.background='#0D1B2A'" onmouseout="this.style.background='#1565C0'">
-        <i class="ti ti-mail-forward"></i> Ouvrir dans ma messagerie
+        <i class="ti ti-file-download"></i> Télécharger le PDF &amp; Envoyer
       </button>
       <button onclick="copyCert()"
         title="Copier le certificat"
@@ -1360,6 +1361,10 @@ html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);colo
         <i class="ti ti-copy" id="copy-icon"></i>
       </button>
     </div>
+    <p style="font-size:11px;color:#888;margin-bottom:8px;line-height:1.5">
+      <i class="ti ti-info-circle" style="font-size:12px"></i>
+      Le certificat PDF sera téléchargé automatiquement — pensez à le joindre à l'email.
+    </p>
 
     <!-- Message retour -->
     <div id="send-feedback" style="display:none;padding:10px 14px;border-radius:10px;font-size:12px;font-weight:500;margin-bottom:10px"></div>
@@ -1369,6 +1374,9 @@ html,body{height:100%;font-family:'Poppins',sans-serif;background:var(--bg);colo
     </button>
   </div>
 </div>
+
+<!-- Logo Altis pré-chargé pour jsPDF -->
+<img id="altis-logo" src="Altis 1.png" style="display:none" alt="">
 
 <script>
 // ═══ PROFIL UTILISATEUR ═══
@@ -1521,7 +1529,7 @@ const QUIZ = [
     ko:"Le PDP Complet comporte 13 sections (dont la FARC avec 13 risques pré-remplis). Le PDP Simplifié en a seulement 7.",
   },
   {
-    q:"Quelle est la durée de validité du PDP Simplifié (annuel) ?",
+    q:"Quelle est la durée de validité du PDP Simplifié ?",
     opts:["3 mois","6 mois","1 an — à renouveler","Durée de l'intervention uniquement"],
     ans:2,
     ok:"Exact ! Le PDP Simplifié est valide 1 an et doit être renouvelé à échéance. Le PDP Complet, lui, est valide pour la seule durée de l'intervention.",
@@ -1625,6 +1633,17 @@ function updateUI() {
 }
 
 // ═══ QUIZ ═══
+let shuffledAns = 0;
+
+function shuffleArray(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 function initQuiz() {
   quizQ = 0; quizScore = 0; quizAnswered = false;
   renderQ();
@@ -1638,11 +1657,15 @@ function renderQ() {
     `<div class="qp-dot ${i<quizQ?'done':i===quizQ?'current':''}"></div>`
   ).join('');
 
+  const indices = shuffleArray(q.opts.map((_,i) => i));
+  shuffledAns = indices.indexOf(q.ans);
+  const shuffledOpts = indices.map(i => q.opts[i]);
+
   const letters = ['A','B','C','D'];
   document.getElementById('quiz-body').innerHTML = `
     <div class="quiz-q">Question ${quizQ+1} sur ${QUIZ.length}<br>${q.q}</div>
     <div class="quiz-options">
-      ${q.opts.map((o,i)=>`
+      ${shuffledOpts.map((o,i)=>`
         <button class="q-opt" onclick="answer(${i})" data-i="${i}">
           <span class="opt-letter">${letters[i]}</span>${o}
         </button>`).join('')}
@@ -1657,14 +1680,14 @@ function answer(i) {
   if (quizAnswered) return;
   quizAnswered = true;
   const q = QUIZ[quizQ];
-  const opts = document.querySelectorAll('.q-opt');
-  opts.forEach(o => o.disabled = true);
+  const allOpts = document.querySelectorAll('.q-opt');
+  allOpts.forEach(o => o.disabled = true);
   const chosen = document.querySelector(`.q-opt[data-i="${i}"]`);
-  const correct = document.querySelector(`.q-opt[data-i="${q.ans}"]`);
+  const correct = document.querySelector(`.q-opt[data-i="${shuffledAns}"]`);
   const fb = document.getElementById('qfb');
   const nxt = document.getElementById('qnext');
 
-  if (i === q.ans) {
+  if (i === shuffledAns) {
     chosen.classList.add('correct');
     quizScore++;
     fb.className = 'quiz-feedback show qf-ok';
@@ -1759,6 +1782,160 @@ function buildCertText() {
   return { name, score, total, pct, mention };
 }
 
+function generateCertPDF(name, email, score, total, pct, mention) {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+  const W = 210, H = 297;
+
+  // Fond blanc + bordure décorative
+  doc.setFillColor(255, 255, 255);
+  doc.rect(0, 0, W, H, 'F');
+
+  // Bande bleue en haut
+  doc.setFillColor(21, 101, 192);
+  doc.rect(0, 0, W, 28, 'F');
+
+  // Logo Altis (coin haut-gauche de la bande)
+  const logoEl = document.getElementById('altis-logo');
+  if (logoEl && logoEl.complete && logoEl.naturalWidth > 0) {
+    try {
+      const canvas = document.createElement('canvas');
+      canvas.width = logoEl.naturalWidth;
+      canvas.height = logoEl.naturalHeight;
+      canvas.getContext('2d').drawImage(logoEl, 0, 0);
+      const logoData = canvas.toDataURL('image/png');
+      const logoH = 16;
+      const logoW = logoH * (logoEl.naturalWidth / logoEl.naturalHeight);
+      doc.addImage(logoData, 'PNG', 8, 6, logoW, logoH);
+    } catch(e) { /* logo non disponible en local */ }
+  }
+
+  // Bande bleue en bas
+  doc.setFillColor(21, 101, 192);
+  doc.rect(0, H - 18, W, 18, 'F');
+
+  // Titre dans la bande bleue (décalé à droite si logo présent)
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(16);
+  doc.setTextColor(255, 255, 255);
+  doc.text('CERTIFICAT DE FORMATION HSE', W / 2, 17, { align: 'center' });
+
+  // Sous-titre
+  doc.setFontSize(11);
+  doc.setFont('helvetica', 'normal');
+  doc.text('Plan de Prevention HSE — Biscuiterie Tour d\'Albon', W / 2, 23.5, { align: 'center' });
+
+  // Logo/Picto trophée (texte)
+  doc.setFontSize(36);
+  doc.setTextColor(21, 101, 192);
+  doc.text('★', W / 2, 52, { align: 'center' });
+
+  // Message principal
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(12);
+  doc.setTextColor(80, 80, 80);
+  doc.text('Nous certifions que', W / 2, 64, { align: 'center' });
+
+  // Nom du participant
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(22);
+  doc.setTextColor(13, 27, 42);
+  doc.text(name, W / 2, 76, { align: 'center' });
+
+  // Ligne décorative sous le nom
+  doc.setDrawColor(21, 101, 192);
+  doc.setLineWidth(0.8);
+  const lineW = 80;
+  doc.line((W - lineW) / 2, 79, (W + lineW) / 2, 79);
+
+  // Texte de certification
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(11);
+  doc.setTextColor(80, 80, 80);
+  const certText = 'a complete avec succes la formation sur le processus\nPlan de Prevention HSE et maitrise les obligations reglementaires associees.';
+  doc.text(certText, W / 2, 89, { align: 'center' });
+
+  // Encadré score
+  doc.setFillColor(227, 242, 253);
+  doc.setDrawColor(187, 222, 251);
+  doc.setLineWidth(0.5);
+  doc.roundedRect(30, 102, W - 60, 28, 4, 4, 'FD');
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(20);
+  doc.setTextColor(21, 101, 192);
+  doc.text(score + ' / ' + total + '   (' + pct + '%)', W / 2, 114, { align: 'center' });
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  doc.setTextColor(21, 101, 192);
+  doc.text(mention, W / 2, 122, { align: 'center' });
+
+  // Détails de la formation
+  doc.setDrawColor(220, 220, 220);
+  doc.setLineWidth(0.3);
+  doc.line(20, 138, W - 20, 138);
+
+  const details = [
+    ['Formation', 'Plan de Prevention Ponctuel HSE'],
+    ['Organisme', 'Biscuiterie Tour d\'Albon — Z.I. Rapon, 26140 ANNEYRON'],
+    ['Participant', name],
+    ['Email', email],
+    ['Date', certDate],
+    ['Duree', '~30 minutes'],
+    ['Reference', 'SME_ENA_11b — Form-HSE-041'],
+  ];
+
+  let y = 147;
+  details.forEach(([label, val]) => {
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
+    doc.setTextColor(100, 100, 100);
+    doc.text(label + ' :', 25, y);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(30, 30, 30);
+    doc.text(val, 65, y);
+    y += 8;
+  });
+
+  // Modules validés
+  doc.line(20, y + 2, W - 20, y + 2);
+  y += 10;
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(10);
+  doc.setTextColor(21, 101, 192);
+  doc.text('Modules valides :', 25, y);
+  y += 7;
+
+  const modules = [
+    '1. Pourquoi un PDP ?',
+    '2. Definitions cles (EU, EE, ICP, FARC)',
+    '3. Cadre reglementaire',
+    '4. Choix du modele PDP',
+    '5. Inspection Commune Prealable (ICP)',
+    '6. Remplir le PDP Complet',
+    '7. Analyse des risques (FARC)',
+    '8. Securite alimentaire BRC / IFS',
+  ];
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(9);
+  doc.setTextColor(50, 50, 50);
+  const half = Math.ceil(modules.length / 2);
+  modules.slice(0, half).forEach((m, i) => { doc.text(m, 30, y + i * 6.5); });
+  modules.slice(half).forEach((m, i) => { doc.text(m, 115, y + i * 6.5); });
+
+  // Pied de page
+  doc.setFont('helvetica', 'italic');
+  doc.setFontSize(8);
+  doc.setTextColor(255, 255, 255);
+  doc.text('Certificat genere par le module e-learning HSE — Biscuiterie Tour d\'Albon', W / 2, H - 8, { align: 'center' });
+
+  const fileName = 'Certificat_HSE_' + name.replace(/\s+/g, '_') + '_' + certDate.replace(/\s/g, '-') + '.pdf';
+  doc.save(fileName);
+  return fileName;
+}
+
 function sendCertEmail() {
   // ─── ADRESSE DESTINATAIRE HSE ─────────────────────────────────
   const DEST_RH = 'hse@biscuiterie-touralbon.fr';  // <- modifier ici
@@ -1776,45 +1953,31 @@ function sendCertEmail() {
     document.getElementById('input-email').focus(); return;
   }
 
+  if (!window.jspdf) {
+    showFeedback('error', 'La bibliothèque PDF n\'est pas chargée. Vérifiez votre connexion internet.');
+    return;
+  }
+
   const { score, total, pct, mention } = buildCertText();
 
+  // 1. Générer et télécharger le PDF
+  const fileName = generateCertPDF(name, email, score, total, pct, mention);
+
+  // 2. Ouvrir la messagerie avec invitation à joindre le PDF
   const lignes = [
     'Bonjour,',
     '',
     name + ' a complété avec succès la formation Plan de Prévention HSE.',
     '',
-    '======================================',
-    '      CERTIFICAT DE FORMATION HSE',
-    '======================================',
+    '>>> IMPORTANT : veuillez joindre le fichier PDF téléchargé : ' + fileName,
     '',
-    'Formation   : Plan de Prévention Ponctuel HSE',
-    'Organisme   : Biscuiterie Tour d\'Albon — Z.I. Rapon, 26140 ANNEYRON',
-    '',
+    '--- Récapitulatif ---',
     'Participant : ' + name,
     'Email       : ' + email,
     'Date        : ' + certDate,
-    'Duree       : ~30 minutes',
-    '',
-    '--------------------------------------',
     'Score       : ' + score + ' / ' + total + '  (' + pct + '%)',
     'Mention     : ' + mention,
-    '--------------------------------------',
-    '',
-    'Modules valides :',
-    '  1. Pourquoi un PDP ?',
-    '  2. Definitions cles (EU, EE, ICP, FARC)',
-    '  3. Cadre reglementaire',
-    '  4. Choix du modele PDP',
-    '  5. Inspection Commune Prealable (ICP)',
-    '  6. Remplir le PDP Complet',
-    '  7. Analyse des risques (FARC)',
-    '  8. Securite alimentaire BRC / IFS',
-    '',
-    'Ref. document : SME_ENA_11b — Form-HSE-041',
-    '',
-    '======================================',
-    'Certificat genere par le module e-learning HSE',
-    'Biscuiterie Tour d\'Albon',
+    'Référence   : SME_ENA_11b — Form-HSE-041',
     '',
     'Cordialement,',
     name,
@@ -1825,15 +1988,17 @@ function sendCertEmail() {
   );
   const body = encodeURIComponent(lignes.join('\n'));
 
-  window.location.href =
-    'mailto:' + email +
-    '?cc=' + encodeURIComponent(DEST_RH) +
-    '&subject=' + subject +
-    '&body=' + body;
+  setTimeout(() => {
+    window.location.href =
+      'mailto:' + email +
+      '?cc=' + encodeURIComponent(DEST_RH) +
+      '&subject=' + subject +
+      '&body=' + body;
+  }, 500);
 
   showFeedback('success',
-    'Votre messagerie va s\'ouvrir avec le certificat pret a envoyer. ' +
-    'Une copie sera envoyee automatiquement a ' + DEST_RH + '.'
+    '✓ Certificat PDF téléchargé : ' + fileName + '\n' +
+    'Votre messagerie va s\'ouvrir — pensez à joindre ce fichier PDF avant d\'envoyer.'
   );
 }
 
@@ -1870,7 +2035,7 @@ function showFeedback(type, msg) {
     success : 'background:#F1F8E9;color:#2E7D32;border:1px solid #A5D6A7',
     error   : 'background:#FFEBEE;color:#B71C1C;border:1px solid #FFCDD2',
   };
-  fb.style.cssText = 'display:block;padding:10px 14px;border-radius:10px;font-size:12px;font-weight:500;text-align:left;line-height:1.6;margin-bottom:8px;' + (styles[type] || styles.error);
+  fb.style.cssText = 'display:block;padding:10px 14px;border-radius:10px;font-size:12px;font-weight:500;text-align:left;line-height:1.6;margin-bottom:8px;white-space:pre-wrap;' + (styles[type] || styles.error);
   fb.textContent = msg;
 }
 
